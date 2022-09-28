@@ -21,18 +21,18 @@
     <nav class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-center">
             <!-- Logo -->
+            <img src="" alt="" loading="lazy" height="100" width="100">
         </div>
     </nav>
 
-    <div>
-        <div>
-            <button class="uk-button uk-button-primary uk-margin-small-right" uk-toggle="target: #login-modal"
-                type="button"><span uk-icon="sign-in"></span>Login</button>
-        </div>
-        <div>
-            <button class="uk-button uk-button-secondary uk-margin-small-right" uk-toggle="target: #register-modal"
-                type="button"><span uk-icon="users"></span>Create Account</button>
-        </div>
+    <div class="uk-container uk-container-small uk-padding-large">
+        <p class="uk-text-uppercase uk-text-center">
+                <button class="uk-button uk-button-primary" uk-toggle="target: #login-modal"
+                    type="button"><span uk-icon="sign-in"></span>Login</button>
+            
+                <button class="uk-button uk-button-secondary uk-margin-small-right" uk-toggle="target: #register-modal"
+                    type="button"><span uk-icon="users"></span>Create Account</button>
+    </p>
     </div>
 
     <div id="login-modal" uk-modal>
@@ -42,7 +42,7 @@
                     <label for="username">Username:</label>
                     <input class="uk-input" type="text" id="username" name="username">
                     <label for="pass">Password:</label>
-                    <input  class="uk-input" type="password" id="pass" name="password" minlength="8" required>
+                    <input class="uk-input" type="password" id="pass" name="password" minlength="8" required>
                 </div>
                 <div class="uk-modal-footer">
                     <p class="uk-text-right">
@@ -64,10 +64,6 @@
                         <input class="uk-input" type="text" id="username" name="username">
                         <label for="pass">Password:</label>
                         <input class="uk-input" type="password" id="pass" name="password" minlength="8" required>
-                        <p class="uk-text-right">
-                            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                            <button class="uk-button uk-button-primary" type="button">Login</button>
-                        </p>
                     </div>
                     <div class="uk-modal-footer uk-text-right">
                         <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
