@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Tracker</title>
+
+    <!-- UIkit CSS from jsdelivr-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS  from jsdelivr-->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/js/uikit-icons.min.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-center">
+            <!-- Logo -->
+        </div>
+    </nav>
+
+    <div>
+        <div>
+            <button class="uk-button uk-button-primary uk-margin-small-right" uk-toggle="target: #login-modal"
+                type="button"><span uk-icon="sign-in"></span>Login</button>
+        </div>
+        <div>
+            <button class="uk-button uk-button-secondary uk-margin-small-right" uk-toggle="target: #register-modal"
+                type="button"><span uk-icon="users"></span>Create Account</button>
+        </div>
+    </div>
+
+    <div id="login-modal" uk-modal>
+        <div class="uk-modal-dialog">
+            <form action="">
+                <div class="uk-modal-body">
+                    <label for="username">Username:</label>
+                    <input class="uk-input" type="text" id="username" name="username">
+                    <label for="pass">Password:</label>
+                    <input  class="uk-input" type="password" id="pass" name="password" minlength="8" required>
+                </div>
+                <div class="uk-modal-footer">
+                    <p class="uk-text-right">
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                        <button class="uk-button uk-button-primary" type="button">Login</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <div id="register-modal" uk-modal>
+            <div class="uk-modal-dialog">
+                <form action="">
+                    <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">account creation</h2>
+                    </div>
+                    <div class="uk-modal-body">
+                        <label for="username">Username:</label>
+                        <input class="uk-input" type="text" id="username" name="username">
+                        <label for="pass">Password:</label>
+                        <input class="uk-input" type="password" id="pass" name="password" minlength="8" required>
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                            <button class="uk-button uk-button-primary" type="button">Login</button>
+                        </p>
+                    </div>
+                    <div class="uk-modal-footer uk-text-right">
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                        <button class="uk-button uk-button-primary" type="button">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
