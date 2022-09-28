@@ -6,14 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Tracker</title>
-
-    <!-- UIkit CSS from jsdelivr-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/css/uikit.min.css" />
-
-    <!-- UIkit JS  from jsdelivr-->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/js/uikit-icons.min.js"></script>
-
+    <%- include('../partials/headerImports.ejs') %>
 </head>
 
 <body>
@@ -25,14 +18,15 @@
         </div>
     </nav>
 
-    <div class="uk-container uk-container-small uk-padding-large">
-        <p class="uk-text-uppercase uk-text-center">
+    <div class="uk-container uk-container-small uk-padding-large uk-text-center">
+        <h1 class="uk-h1">Welcome to your digital portfolio!</h1>
+        <p></p>
+        <p class="uk-text-uppercase">
                 <button class="uk-button uk-button-primary" uk-toggle="target: #login-modal"
                     type="button"><span uk-icon="sign-in"></span>Login</button>
-            
                 <button class="uk-button uk-button-secondary uk-margin-small-right" uk-toggle="target: #register-modal"
                     type="button"><span uk-icon="users"></span>Create Account</button>
-    </p>
+        </p>
     </div>
 
     <div id="login-modal" uk-modal>
