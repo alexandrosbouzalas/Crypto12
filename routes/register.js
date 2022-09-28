@@ -1,16 +1,12 @@
 const express = require("express");
 const sanitize = require("mongo-sanitize");
-const { sendMail } = require("../public/js/mail");
 const { generateToken } = require("../public/js/utils");
-const { addTime } = require("../public/js/utils");
 const { bcryptHash } = require("../public/js/utils");
 const { validatePassword } = require("../public/js/utils");
-const { validateEmail } = require("../public/js/utils");
 const { validateUsername } = require("../public/js/utils");
 
 // Database models
 const User = require("./../models/user");
-const Token = require("./../models/token");
 
 const title = "register";
 
@@ -28,17 +24,6 @@ router.use(function (req, res, next) {
   req.params = sanitize(req.params);
   next();
 });
-
-function createAccountToken(uId) {
-  const token = new Token({
-    token: generateToken(),
-    for: "account",
-    uId: uId,
-    expirationDate: addTime(new Date(), 360),
-  });
-
-  return token;
-}
 
 router.get("/", (req, res) => {
   res.render("register/register", { title: title });
