@@ -1,8 +1,7 @@
 const express = require("express");
 const sanitize = require("mongo-sanitize");
-const { bcryptCompare } = require("../public/js/utils");
+const { bcryptCompare, validateUsername } = require("../public/js/utils");
 const { validatePassword } = require("../public/js/utils");
-const { validateEmail } = require("../public/js/utils");
 
 const router = express.Router();
 
@@ -14,8 +13,8 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 router.use("./public/js/utils", bcryptCompare);
+router.use("./public/js/utils", validateUsername);
 router.use("./public/js/utils", validatePassword);
-router.use("./public/js/utils", validateEmail);
 
 router.use(function (req, res, next) {
   req.body = sanitize(req.body);
@@ -30,16 +29,16 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { email, password } = req.body.data;
+  const { username, password } = req.body.data;
 
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ username: username });
 
-    if (!validateEmail(email.toString())) throw new Error("Invalid email");
+    if (!validateUsername(username.toString())) throw new Error("Invalid username");
     if (!validatePassword(password.toString()))
       throw new Error("Invalid password");
 
-    if (email && password) {
+    if (username && password) {
       if (req.session.authenticated) {
         res.json(req.session);
       } else {
@@ -78,7 +77,7 @@ router.post("/", async (req, res) => {
       e.message.includes("Invalid")
     ) {
       res.status(403).json({
-        msg: "The email or password is incorrect.",
+        msg: "The username or password is incorrect.",
       });
     } else {
       res.status(500).json({
