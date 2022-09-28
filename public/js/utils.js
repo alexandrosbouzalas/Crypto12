@@ -8,17 +8,6 @@ module.exports = {
     const bitArray = sjcl.hash.sha256.hash(seed);
     return sjcl.codec.hex.fromBits(bitArray);
   },
-  
-  validateInputUrl : function (input) {
-    const reInputStringShort = /^https:\/\/youtube\.com\/watch\?v=[a-zA-Z0-9_]+$/;
-    const reInputStringFull = /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_]+$/;
-
-    if (!reInputStringShort.test(input) && !reInputStringFull.test(input) ) {
-        return false;
-    } else {
-        return true;
-    }
-  },
 
   bcryptHash: async function (password) {
     const saltRounds = 10;
