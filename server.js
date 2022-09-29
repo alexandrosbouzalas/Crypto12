@@ -14,7 +14,7 @@ const title = "index";
 
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/maschinenpark");
+mongoose.connect("mongodb://localhost:27017/cryptoportfolio");
 
 redisClient.on("error", (err) => {
   console.log("\nCould not establish a connection with redis.\n".toUpperCase());
