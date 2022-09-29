@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Tracker</title>
+    <%- include('../partials/headerImports.ejs') %>
+</head>
+
+<body>
+
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-center">
+            <!-- Logo -->
+            <img src="" alt="" loading="lazy" height="100" width="100">
+        </div>
+    </nav>
+
+    <div class="uk-container uk-container-small uk-padding-large uk-text-center">
+        <h1 class="uk-h1">Welcome to your digital portfolio!</h1>
+        <p></p>
+        <p class="uk-text-uppercase">
+                <button class="uk-button uk-button-primary" uk-toggle="target: #login-modal"
+                    type="button"><span uk-icon="sign-in"></span>Login</button>
+                <button class="uk-button uk-button-secondary uk-margin-small-right" uk-toggle="target: #register-modal"
+                    type="button"><span uk-icon="users"></span>Create Account</button>
+        </p>
+    </div>
+
+    <div id="login-modal" uk-modal>
+        <div class="uk-modal-dialog">
+            <form action="">
+                <div class="uk-modal-body">
+                    <label for="username">Username:</label>
+                    <input class="uk-input" type="text" id="username" name="username">
+                    <label for="pass">Password:</label>
+                    <input class="uk-input" type="password" id="pass" name="password" minlength="8" required>
+                </div>
+                <div class="uk-modal-footer">
+                    <p class="uk-text-right">
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                        <button class="uk-button uk-button-primary" type="button">Login</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <div id="register-modal" uk-modal>
+            <div class="uk-modal-dialog">
+                <form action="">
+                    <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">account creation</h2>
+                    </div>
+                    <div class="uk-modal-body">
+                        <label for="username">Username:</label>
+                        <input class="uk-input" type="text" id="username" name="username" required>
+                        <label for="password">Password:</label>
+                        <input class="uk-input" type="password" id="password" name="password" minlength="8" required>
+                        <label for="password-repeat">Password (repeat):</label>
+                        <input class="uk-input" type="password" id="password-repeat" name="password-repeat" minlength="8" required>
+                    </div>
+                    <div class="uk-modal-footer uk-text-right">
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                        <button class="uk-button uk-button-primary" type="button">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
