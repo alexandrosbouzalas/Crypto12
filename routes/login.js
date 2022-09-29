@@ -32,34 +32,30 @@ router.post("/", async (req, res) => {
   const { username, password } = req.body.data;
 
   try {
-    const user = await User.findOne({ username: username });
-
-    if (!validateUsername(username.toString())) throw new Error("Invalid username");
-    if (!validatePassword(password.toString()))
+    
+    if (username.length < 4) 
+      throw new Error("Invalid username");
+    if (password.length < 8)
       throw new Error("Invalid password");
+
+    const user = await User.findOne({ username: username });
 
     if (username && password) {
       if (req.session.authenticated) {
         res.json(req.session);
       } else {
         if (user) {
-          const active = user.active;
           const valid = await bcryptCompare(password, user);
           const username = user.username;
 
           if (valid) {
-            if (active) {
-              req.session.authenticated = true;
-              req.session.user = {
-                username,
-              };
+          
+            req.session.authenticated = true;
+            req.session.user = {
+              username,
+            };
 
-              res.status(200).json(req.session);
-            } else {
-              res.json({
-                msg: "This account has not yet been activated",
-              });
-            }
+            res.status(200).json(req.session);
           } else throw new Error("Wrong password");
         } else {
           throw new Error("User not found");
@@ -72,7 +68,7 @@ router.post("/", async (req, res) => {
     console.log(e.message);
     if (
       e.message.includes("Wrong") ||
-      e.message.includes("not found") ||
+      e.message.includes("User not found") ||
       e.message.includes("undefined") ||
       e.message.includes("Invalid")
     ) {
