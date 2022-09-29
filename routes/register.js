@@ -34,9 +34,9 @@ router.post("/", async (req, res) => {
 
   const { username, password } = req.body.data;
 
-  if (!validatePassword(password.toString()))
+  if (password.length < 8)
     throw new Error("Invalid password");
-  if (!validateUsername(username.toString()))
+  if (username.length < 4)
     throw new Error("Invalid username");
 
   const usernameCount = await User.aggregate([{ $count: "username" }]);
