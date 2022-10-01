@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "./node_modules/.bin/nodemon server.js"
+    "start-server": "./node_modules/.bin/nodemon server.js",
+    "lesscm": "./node_modules/.bin/lessc ./public/less/uikit.theme.less ./public/css/uikit.theme.css && ./node_modules/.bin/css-minify -f ./public/css/uikit.theme.css -o ./public/css && echo \"fyi: 生成成功 == Generated successfully\""
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,11 @@
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^6.1.3",
+    "css-minify": "^2.0.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
+    "lessc": "^1.0.2",
     "mongo-sanitize": "^1.1.0",
     "mongoose": "^6.6.2",
     "nodemon": "^2.0.20",
