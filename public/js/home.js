@@ -9,18 +9,46 @@ $('#exit-btn').click(() => {
     window.location.pathname = '/logout';
 })
 
-const fetchCryptoData = () => {
+const insertDataIntoTable = CData => {
+
+    $('.crypto-data-container tbody tr').each((i, element) => {
+        let currentCoin = Object.entries(CData)[i][1];
+        $(element).find('.coin-price').text(currentCoin.FRR + '$')
+
+        let change = calculateChange(currentCoin.DAILY_CHANGE_RELATIVE, currentCoin.FRR);
+        $(element).find('.coin-fluctuation').text(change.value).addClass(change.status);
+    })
+}
+
+const fetchTickers = () => {
     $.ajax({
-        url: "https://rest.coinapi.io/v1/assets",
+        url: "/home/fetchCData",
         method: "GET",
         contentType: "application/json",
-        headers: {'X-CoinAPI-Key': 'FECE57DA-544D-425B-92E5-DDA3AC296063'},
         success: function (response) {
-          console.log(response)
+          insertDataIntoTable(response);
         },
         error: function (err) {
             // Insert error handling here
-          console.log(err.responseJSON.error)
+          console.log(err.statusText)
         },
       });
 }
+
+const calculateChange = (priceYesterday, priceCurrent) => {
+
+    if (priceYesterday > priceCurrent)
+        return {value: "-" + (100 * Math.abs((priceYesterday - priceCurrent) / ((priceYesterday + priceCurrent) / 2))).toFixed(2).toString() + "%", status: 'down'}
+
+    return {value: (100 * Math.abs((priceYesterday - priceCurrent) / ((priceYesterday + priceCurrent) / 2))).toFixed(2).toString() + "%", status: 'up'}
+
+}
+
+$(document).ready(() => {
+    fetchTickers();
+
+    setInterval(() => {
+        fetchTickers();
+    }, 10000)
+})
+

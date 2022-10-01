@@ -76,12 +76,9 @@ html {
 
 .crypto-data-container {
     width: 60%;
-    float: left; 
+    float: left;
     height: 70vh;
-    border: 3px solid red;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    overflow: auto;
 }
 
 .crypto-chart-container {
@@ -160,13 +157,17 @@ td > a {
 .buy-btn {
     height: 40px;
     font-family: 'VW Text', sans-serif;
-    padding-inline: 5px;
+    padding-inline: 10px;
     font-size: 20px;
     color: white;
     background-color: green;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+}
+
+.buy-btn-container {
+    margin-top: 5px;
 }
 
 .buy-btn:hover {
