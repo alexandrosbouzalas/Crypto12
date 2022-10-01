@@ -5,25 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
     <title>Crypto12</title>
     <%- include('../partials/headerImports.ejs') %>
 </head>
 
 <body>
-    <div class="uk-container uk-container-small uk-text-center" id="container-main">
-        <h1 class="uk-h1">Welcome to <b>Crypto12</b>Crypto12</h1>
-        <h3 class="info-text-index">Your free digital portfolio</h3>
-        <p class="uk-text-uppercase">
+    <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
+        style="background-image: url(/img/8296016.jpg);" uk-height-viewport>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h1 class="uk-text-center">Welcome to <b>Crypto12</b></h1>
+            <h2 class="uk-text-center">Your free digital portfolio</h2>
+            <p class="uk-text-uppercase uk-text-center">
                 <button id="login-btn" class="uk-button uk-button-primary" uk-toggle="target: #login-modal"
                     type="button"><span uk-icon="sign-in"></span>Login</button>
-                <button id="register-btn"class="uk-button uk-button-secondary uk-margin-small-right" uk-toggle="target: #register-modal"
-                    type="button"><span uk-icon="users"></span>Create Account</button>
-        </p>
+                <button id="register-btn" class="uk-button uk-button-secondary uk-margin-small-right"
+                    uk-toggle="target: #register-modal" type="button"><span uk-icon="users"></span>Create
+                    Account</button>
+            </p>
+        </div>
     </div>
 
-    <div id="login-modal" uk-modal>
-        <div class="uk-modal-dialog">
+    <div id="login-modal" uk-modal="animation: uk-fade">
+        <div class="uk-modal-dialog uk-margin-auto-vertical">
             <form action="">
                 <div class="uk-modal-body">
                     <label for="username">Username:</label>
@@ -36,12 +39,14 @@
                         <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
                         <button id="login-confirm-btn" class="uk-button uk-button-primary" type="button">Login</button>
                     </p>
+                    <p>Need an Account? <a href="#register-modal" class="uk-link-text" uk-toggle>Create one here.</a>
+                    </p>
                 </div>
             </form>
         </div>
 
-        <div id="register-modal" uk-modal>
-            <div class="uk-modal-dialog">
+        <div id="register-modal" uk-modal="">
+            <div class="uk-modal-dialog uk-margin-auto-vertical">
                 <form action="">
                     <div class="uk-modal-header">
                         <h2 class="uk-modal-title">Create your free portfolio today!</h2>
@@ -50,16 +55,23 @@
                         <label for="username">Username:</label>
                         <input class="uk-input" type="text" id="username-register" name="username" required>
                         <label for="password">Password:</label>
-                        <input class="uk-input" type="password" id="password-register" name="password" minlength="8" required>
+                        <input class="uk-input" type="password" id="password-register" name="password" minlength="8"
+                            required>
                         <label for="password-repeat">Password (repeat):</label>
-                        <input class="uk-input" type="password" id="password-repeat-register" name="password-repeat" minlength="8" required>
+                        <input class="uk-input" type="password" id="password-repeat-register" name="password-repeat"
+                            minlength="8" required>
                     </div>
-                    <div class="uk-modal-footer uk-text-right">
-                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                        <button id="register-confirm-btn" class="uk-button uk-button-primary" type="button">Register</button>
+                    <div class="uk-modal-footer">
+                        <p class="uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                            <button id="register-confirm-btn" class="uk-button uk-button-primary"
+                                type="button">Register</button>
+                        </p>
+                        <p>Already have an Account? <a href="#login-modal" class="uk-link-text" uk-toggle>Login
+                                here.</a></p>
                     </div>
                 </form>
-            </div>  
+            </div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
