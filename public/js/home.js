@@ -1,3 +1,4 @@
+let defaultTimespan = 7;
 
 
 $('.tab').click((event) => {
@@ -34,7 +35,7 @@ const fetchTickers = () => {
         },
       });
 }
-
+/* 
 const fetchCoinHistory = (coin) => {
     $.ajax({
         url: "/home/fetchCDataHistory",
@@ -50,10 +51,38 @@ const fetchCoinHistory = (coin) => {
         },
       });
 }
+*/
 
-const prepareChartSingleCurrency = (JSONCHData) => {
+const changeDefaultTimespan = () => {
+
+    const selectedTimespan = $('.active-tspan').children().text();
+    switch (selectedTimespan) {
+        case '1T':
+            defaultTimespan = 2;
+            break;
+        case '1M':
+            defaultTimespan = 30;
+            break;
+        case '1J':
+            defaultTimespan = 365;
+            break;
+        default: 
+            break;
+    }
     
 }
+
+const prepareChartSingleCurrency = (coinLabel) => {
+
+    CryptoCharts.priceHistory({
+        chart_id: "chart",
+        cryptocompare_tickers: [coinLabel ? coinLabel : $('tr.focused').find('.coin-name-short').text()],
+        axes: true,
+        last_days: defaultTimespan,
+        loading_indicator: true,
+        options: {colors: ["#025dff"]}
+      });
+} 
 
 const calculateChange = (priceYesterday, priceCurrent) => {
 
@@ -64,11 +93,56 @@ const calculateChange = (priceYesterday, priceCurrent) => {
 
 }
 
+const switchCoinView = () => {
+
+    if($('tr.focused').next().length == 0)
+        $('tbody tr').removeClass('focused').first().addClass('focused');
+    else
+        $('tr.focused').removeClass('focused').next().addClass('focused');
+
+    const coinLabel = $('tr.focused').find('.coin-name-short').text();
+
+    prepareChartSingleCurrency(coinLabel);
+    
+}
+
 $(document).ready(() => {
     fetchTickers();
 
-    setInterval(() => {
+    CryptoCharts.priceHistory({
+        chart_id: "chart",
+        cryptocompare_tickers: ['BTC'],
+        axes: true,
+        last_days: 7,
+        loading_indicator: true,
+        options: {colors: ["#025dff"]}
+      });  
+
+    const coinSelectionInterval = setInterval(() => {
+        switchCoinView();
         fetchTickers();
     }, 10000)
+
+
+    $('.timespan-select').click((event) => {
+        $('.timespan-select').removeClass('active-tspan');
+        $(event.currentTarget).addClass('active-tspan');
+        changeDefaultTimespan();
+        prepareChartSingleCurrency();
+    })
+
+    $('tbody tr').click((event) => {
+        if(!$(event.target).is('button')) {
+            clearInterval(coinSelectionInterval);
+            $('tr').removeClass();
+            $(event.currentTarget).addClass('user-selected-row focused');
+            prepareChartSingleCurrency();
+        }
+    })
+
+    $('.buy-btn').click((event) => {
+        alert('test');
+    })
+
 })
 

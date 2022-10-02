@@ -75,28 +75,24 @@ html {
 }
 
 .crypto-data-container {
-    width: 60%;
+    width: 50%;
     float: left;
     height: 70vh;
     overflow: auto;
+    padding-right: 30px;
 }
 
 .crypto-chart-container {
-    width: 40%;
+    width: 50%;
     float: right; 
-    height: 70vh;
-    border: 3px solid blue;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    min-height: 70vh;
+    padding-left: 30px;
 }
 
 .crypto-data-container > table {
     border-collapse: collapse;
     border: 1px solid grey;
-    width: 90%;
-    /* height: 65vh; */
-    margin: auto;
+    width: 100%;
 }
 
 .crypto-data-container thead {
@@ -116,9 +112,57 @@ html {
     padding-left: 10px;
 }
 
+.crypto-data-container p {
+    margin-top: 5px;
+    font-size: 20px;
+    color: grey; 
+    font-family: 'VW Text', sans-serif;
+}
+
 td > a {
     display: flex;
     flex-wrap: nowrap;
+}
+
+.timespan-select-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: end;
+    margin: 20px 20px 0 0;
+}
+
+.timespan-select {
+    height: 30px;
+    width: 30px;
+    color: white;
+    background: #025dff;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'VW Head', sans-serif;
+    border-radius: 5px;
+    margin-left: 5px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.timespan-select:hover {
+    opacity: .8;
+}
+
+.user-selected-row {
+    background-color: #025dff !important;
+}
+
+.active-tspan {
+    opacity: unset;
+    pointer-events: none;
+    background: #002047;
+}
+
+#current-chart-coin {
+    font-size: 30px;
+    font-family: 'VW Text', sans-serif;
+    text-align: center;
 }
 
 .coin-icon-container {
@@ -176,6 +220,7 @@ td > a {
 
 tbody tr {
     line-height: 50px;
+    cursor: pointer;
     border-bottom: 1px solid grey;
 }
 
@@ -185,6 +230,10 @@ tbody tr {
 
 .down {
     color: red;
+}
+
+.focused { 
+    background-color: grey;
 }
 
 #exit-btn {
@@ -198,6 +247,7 @@ tbody tr {
     padding-top: 7px;
     font-size: 35px;
     text-align: center;
+    border: 2px solid #002047;
     cursor: pointer;
 }
 

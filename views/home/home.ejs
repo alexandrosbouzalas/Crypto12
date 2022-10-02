@@ -25,7 +25,7 @@
                             <th>Traden</th>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="focused">
                                 <td>
                                     <a>
                                         <div class="coin-icon-container">
@@ -229,9 +229,24 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p>* Der Preisunterschied entsteht aus der Differenz des gestrigen Höchststands und dem aktuellen Preis</p>
                 </div>
                 <div class="crypto-chart-container">
-    
+                    <div class="timespan-select-container">
+                        <div class="timespan-select">
+                            <p>1T</p>
+                        </div>
+                        <div class="timespan-select active-tspan">
+                            <p>1W</p>
+                        </div>
+                        <div class="timespan-select">
+                            <p>1M</p>
+                        </div>
+                        <div class="timespan-select">
+                            <p>1J</p>
+                        </div>
+                    </div>
+                    <div id="chart"></div>
                 </div>
             </div>
         </div>
@@ -240,6 +255,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="module" src="/js/dist/ionicons/ionicons.esm.js"></script> 
     <script nomodule src="/js/dist/ionicons/ionicons.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/cryptocharts"></script>
     <script src="/js/home.js"></script>
 </body>
 </html>
