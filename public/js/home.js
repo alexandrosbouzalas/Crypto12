@@ -35,6 +35,26 @@ const fetchTickers = () => {
       });
 }
 
+const fetchCoinHistory = (coin) => {
+    $.ajax({
+        url: "/home/fetchCDataHistory",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ coin: coin }),
+        success: function (response) {
+            prepareChartSingleCurrency(response);
+        },
+        error: function (err) {
+            // Insert error handling here
+          console.log(err.statusText)
+        },
+      });
+}
+
+const prepareChartSingleCurrency = (JSONCHData) => {
+    
+}
+
 const calculateChange = (priceYesterday, priceCurrent) => {
 
     if (priceYesterday > priceCurrent)
