@@ -107,15 +107,25 @@ const switchCoinView = () => {
     
 }
 
+const toggleDarkMode = (darkMode) => {
+    if(darkMode == 'true') {
 
+        $('#color-theme-btn').html('<ion-icon name="moon-outline"></ion-icon>')
 
-const toggleDarkMode = () => {
-    $('#container-main, .tab').addClass('dark-background');
-    $(".coin-name-full, .coin-price, .tab-label").addClass('dark-color');
-    $('#exit-btn').addClass('dark-background dark-color');
+        $('#container-main, .tab').addClass('dark-background');
+        $(".coin-name-full, .coin-price, .tab-label").addClass('dark-color');
+        $('.function-btn').addClass('dark-background dark-color');
+    } else {
+        
+        $('#color-theme-btn').html('<ion-icon name="sunny-outline"></ion-icon>');
+
+        $('#container-main, .tab').removeClass('dark-background');
+        $(".coin-name-full, .coin-price, .tab-label").removeClass('dark-color');
+        $('.function-btn').removeClass('dark-background dark-color');
+    }
 }
 
-toggleDarkMode();
+toggleDarkMode(localStorage.darkMode);
 
 $(document).ready(() => {    
     fetchTickers();
@@ -153,6 +163,16 @@ $(document).ready(() => {
 
     $('.buy-btn').click((event) => {
         alert('test');
+    })
+
+    $('#color-theme-btn').click(() => {
+
+        if(localStorage.darkMode === 'true')
+            localStorage.setItem('darkMode', false);
+        else 
+            localStorage.setItem('darkMode', true);
+
+        toggleDarkMode(localStorage.darkMode);
     })
 
 })
