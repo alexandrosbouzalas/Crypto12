@@ -19,12 +19,12 @@ html {
 #container-main {
     display: flex;
     flex-direction: column;
-    justify-content: end;
     background-color: rgb(200, 200, 200);
     border-radius: 10px;
     height: 90vh;
     width: 90%;
     margin: auto;
+    overflow: auto;
 }
 
 .tab-container {
@@ -35,17 +35,17 @@ html {
     margin-inline: auto;
     justify-content: center;
     transform: translateY(2px);
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .tab-content {
     width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-inline: auto;
     border-top: 2px solid grey;
-    height: 80vh;
+}
+
+.tab-content > div {
+    margin-top: 30px;
 }
 
 .tab {
@@ -60,7 +60,7 @@ html {
 
 .tab-label {
     font-size: 30px;
-    margin-top: 7px;
+    margin: 7px;
     font-family: 'VW Head', sans-serif;
     font-weight: bold;
     text-align: center;
@@ -253,4 +253,22 @@ tbody tr {
 
 #exit-btn:hover {
     color: #025dff;
+}
+
+/* Dark mode options */
+
+.dark-background {
+    background-color: #222 !important;
+}
+
+.dark-color {
+    color: white !important;
+}
+
+#exit-btn.dark-color:hover {
+    color: #025dff !important;
+}
+
+.active-tab.dark-background > p {
+    color: #025dff !important;
 }

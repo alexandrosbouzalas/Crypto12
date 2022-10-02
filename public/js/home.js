@@ -1,3 +1,4 @@
+
 let defaultTimespan = 7;
 
 
@@ -106,7 +107,17 @@ const switchCoinView = () => {
     
 }
 
-$(document).ready(() => {
+
+
+const toggleDarkMode = () => {
+    $('#container-main, .tab').addClass('dark-background');
+    $(".coin-name-full, .coin-price, .tab-label").addClass('dark-color');
+    $('#exit-btn').addClass('dark-background dark-color');
+}
+
+toggleDarkMode();
+
+$(document).ready(() => {    
     fetchTickers();
 
     CryptoCharts.priceHistory({
