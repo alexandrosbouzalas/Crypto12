@@ -36,7 +36,7 @@ const fetchTickers = () => {
         },
       });
 }
-/* 
+
 const fetchCoinHistory = (coin) => {
     $.ajax({
         url: "/home/fetchCDataHistory",
@@ -44,7 +44,7 @@ const fetchCoinHistory = (coin) => {
         contentType: "application/json",
         data: JSON.stringify({ coin: coin }),
         success: function (response) {
-            prepareChartSingleCurrency(response);
+            console.log(response);
         },
         error: function (err) {
             // Insert error handling here
@@ -52,7 +52,7 @@ const fetchCoinHistory = (coin) => {
         },
       });
 }
-*/
+
 
 const changeDefaultTimespan = () => {
 
@@ -139,11 +139,14 @@ $(document).ready(() => {
         options: {colors: ["#025dff"]}
       });  
 
+    setInterval(() => {
+      fetchTickers();
+    }, 10000);
+
     const coinSelectionInterval = setInterval(() => {
         switchCoinView();
         fetchTickers();
     }, 10000)
-
 
     $('.timespan-select').click((event) => {
         $('.timespan-select').removeClass('active-tspan');
@@ -174,6 +177,5 @@ $(document).ready(() => {
 
         toggleDarkMode(localStorage.darkMode);
     })
-
 })
 

@@ -35,7 +35,7 @@ html {
     margin-inline: auto;
     justify-content: center;
     transform: translateY(2px);
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .tab-content {
@@ -67,14 +67,6 @@ html {
     text-align: center;
 }
 
-.active-tab {
-    background: rgb(200, 200, 200);
-}
-
-.active-tab > p {
-    color: #025dff;
-}
-
 .crypto-data-container {
     width: 50%;
     float: left;
@@ -90,8 +82,11 @@ html {
 
 .crypto-data-container > table {
     border-collapse: collapse;
-    border: 1px solid grey;
     width: 100%;
+}
+
+tbody > tr:last-child { 
+    border: none;
 }
 
 .crypto-data-container thead {
@@ -262,12 +257,8 @@ tbody tr {
     left: 15px;
 }
 
-#refresh-btn {
-    bottom: 70px;
-}
-
 #color-theme-btn {
-    bottom: 125px;
+    bottom: 70px;
 }
 
 /* Dark mode options */
@@ -280,9 +271,6 @@ tbody tr {
     color: white !important;
 }
 
-.active-tab.dark-background > p {
-    color: #025dff !important;
-}
 
 /* Media queries */
 
