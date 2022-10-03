@@ -240,7 +240,6 @@ tbody tr {
     position: absolute;
     border-radius: 10px;
     background-color: rgb(200, 200, 200);
-    padding-top: 7px;
     font-size: 35px;
     text-align: center;
     border: 2px solid #002047;
@@ -254,11 +253,22 @@ tbody tr {
 
 #exit-btn {
     bottom: 15px;
-    left: 15px;
 }
 
 #color-theme-btn {
     bottom: 70px;
+}
+
+#settings-btn {
+    bottom: 125px;
+    font-size: revert;
+    padding-top: 4px;
+}
+
+#settings-popup {
+    position: absolute;
+    left: 70px;
+    bottom: 125px;
 }
 
 /* Dark mode options */

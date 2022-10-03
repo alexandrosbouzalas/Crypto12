@@ -254,9 +254,24 @@
                 </div>
             </div>
         </div>
+        <div class="function-btn" id="settings-btn" uk-toggle="target: #settings-popup; animation: uk-animation-fade;"><span uk-icon="icon:settings;ratio:2;"></span></div>
         <div class="function-btn" id="color-theme-btn"><ion-icon name="sunny-outline"></ion-icon></div>
         <div class="function-btn" id="exit-btn"><ion-icon name="exit-outline"></ion-icon></div>
+        <div id="settings-popup" class="uk-card uk-card-default uk-card-body uk-border-rounded uk-width-1-4" hidden>
+            <h3 class="uk-card-title">Settings</h3>
+            <form class="uk-form-horizontal">
+                <label class="uk-form-label" for="form-horizontal-select">Currency</label>
+                <div class="uk-form-controls uk-form-width-medium">
+                    <select class="uk-select" id="form-stacked-select">
+                        <option value="US">US Dollar ($US &#xD9E;) </option>
+                        <option value="EUR">Euro (€)</option>
+                        <option value="JPY">Yen (JP&yen;)</option>
+                    </select>
+                </div>
+            </form>
+        </div>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="module" src="/js/dist/ionicons/ionicons.esm.js"></script> 
     <script nomodule src="/js/dist/ionicons/ionicons.js"></script> 

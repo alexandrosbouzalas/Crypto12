@@ -112,6 +112,7 @@ const toggleDarkMode = (darkMode) => {
 
         $('#color-theme-btn').html('<ion-icon name="moon-outline"></ion-icon>')
 
+        $('#settings-popup').addClass('uk-card-secondary');
         $('#container-main, .tab').addClass('dark-background');
         $(".coin-name-full, .coin-price, .tab-label").addClass('dark-color');
         $('.function-btn').addClass('dark-background dark-color');
@@ -119,6 +120,7 @@ const toggleDarkMode = (darkMode) => {
         
         $('#color-theme-btn').html('<ion-icon name="sunny-outline"></ion-icon>');
 
+        $('#settings-popup').removeClass('uk-card-secondary');
         $('#container-main, .tab').removeClass('dark-background');
         $(".coin-name-full, .coin-price, .tab-label").removeClass('dark-color');
         $('.function-btn').removeClass('dark-background dark-color');
