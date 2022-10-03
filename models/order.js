@@ -18,6 +18,10 @@ const orderSchema = new mongoose.Schema({
   cAmount: {
     required: true,
     type: String,
+  },
+  oDate: {
+    required: true,
+    type: Date,
   }
 });
 
