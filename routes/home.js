@@ -16,9 +16,17 @@ router.get("/", (req, res) => {
   } 
 });
 
-router.get("/fetchCData", (req, res) => {
+router.post("/fetchCData", (req, res) => {
   const baseUrl = "https://api-pub.bitfinex.com/v2/tickers";
 
+  const validCurrencies = ["USD", "EUR", "JPY"];
+
+  if(!validCurrencies.includes(req.body.currency))
+    res.status(404).send("Invalid currency");
+  
+  const currency = req.body.currency
+
+  // const queryParams = `symbols=tBTC${currency},tETH${currency},tSHIB:${currency},tDOGE:${currency},tMATIC:${currency},tLTC${currency},tXMR${currency},tADA${currency},tDOT${currency},tSOL${currency}`
   const queryParams = "symbols=tBTCUSD,tETHUSD,tSHIB:USD,tDOGE:USD,tMATIC:USD,tLTCUSD,tXMRUSD,tADAUSD,tDOTUSD,tSOLUSD"
 
   const KEYS = ['FRR', 'BID', 'BID_PERIOD', 'BID_SIZE', 'ASK', 'ASK_PERIOD', 'ASK_SIZE', 'DAILY_CHANGE', 'DAILY_CHANGE_RELATIVE', 'LAST_PRICE'];

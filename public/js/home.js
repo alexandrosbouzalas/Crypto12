@@ -1,5 +1,6 @@
 
 let defaultTimespan = 7;
+let defaultCurrency = 'EUR';
 
 
 $('.tab').click((event) => {
@@ -25,8 +26,9 @@ const insertDataIntoTable = CData => {
 const fetchTickers = () => {
     $.ajax({
         url: "/home/fetchCData",
-        method: "GET",
+        method: "POST",
         contentType: "application/json",
+        data: JSON.stringify({ currency: defaultCurrency }),
         success: function (response) {
           insertDataIntoTable(response);
         },
@@ -218,6 +220,13 @@ $(document).ready(() => {
             localStorage.setItem('darkMode', true);
 
         toggleDarkMode(localStorage.darkMode);
+    })
+
+    $('#form-stacked-select').change((e) => {
+        defaultCurrency =  $(e.currentTarget).val();
+
+        fetchTickers();
+        $('#settings-btn').click();
     })
 
     $(document).keyup(function(e) {

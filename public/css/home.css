@@ -290,6 +290,7 @@ tbody tr {
 }
 
 #settings-popup {
+    border: 2px solid grey;
     position: absolute;
     left: 70px;
     bottom: 125px;
