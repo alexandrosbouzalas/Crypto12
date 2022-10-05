@@ -260,12 +260,15 @@ tbody tr {
     position: absolute;
     border-radius: 10px;
     background-color: rgb(200, 200, 200);
-    padding-top: 5px;
     font-size: 35px;
     text-align: center;
     border: 2px solid #002047;
     cursor: pointer;
     left: 15px;
+}
+
+.function-btn ion-icon {
+    margin-top: 8px;
 }
 
 .function-btn:hover {

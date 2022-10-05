@@ -75,6 +75,26 @@ $('#register-confirm-btn').click(() => {
     }
 })
 
+const toggleDarkMode = (darkMode) => {
+  if(darkMode == 'true') {
+
+      $('#color-theme-btn').html('<ion-icon name="moon-outline"></ion-icon>')
+
+      $('#color-theme-btn').addClass('dark-background');
+      $('#container-main').addClass('dark-background');
+      $('#color-theme-btn').addClass('dark-color');
+      $('#container-main > h1').addClass('dark-color');
+    } else {
+      
+      $('#color-theme-btn').html('<ion-icon name="sunny-outline"></ion-icon>');
+      
+      $('#color-theme-btn').removeClass('dark-background');
+      $('#container-main').removeClass('dark-background');
+      $('#color-theme-btn').removeClass('dark-color');
+      $('#container-main > h1').removeClass('dark-color');
+  }
+}
+
 const validateUsername = (username) => {
   /* const reUsername =
     /^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,18}[a-zA-Z0-9]$/; */
@@ -92,3 +112,17 @@ const validatePassword = (password) => {
     else return true;
 }
 
+toggleDarkMode(localStorage.darkMode);
+
+
+$(document).ready(() => {
+  $('#color-theme-btn').click(() => {
+
+    if(localStorage.darkMode === 'true')
+        localStorage.setItem('darkMode', false);
+    else 
+        localStorage.setItem('darkMode', true);
+
+    toggleDarkMode(localStorage.darkMode);
+  })
+})

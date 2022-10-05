@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
     <title>Crypto12</title>
     <%- include('../partials/headerImports.ejs') %>
 </head>
@@ -12,9 +13,9 @@
 <body>
     <div class="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle"
         style="background-image: url(/img/8296016.jpg);" uk-height-viewport>
-        <div class="uk-card uk-card-default uk-card-body uk-border-rounded">
+        <div id="container-main" class="uk-card uk-card-default uk-card-body uk-border-rounded">
             <h1 class="uk-text-center">Welcome to <b>Crypto12</b></h1>
-            <h2 class="uk-text-center uk-h3">Your free digital portfolio</h2>
+            <h2 class="uk-text-center uk-h3" style="color: grey;">Your free digital portfolio</h2>
             <p class="uk-text-uppercase uk-text-center">
                 <button id="login-btn" class="uk-button uk-button-primary" uk-toggle="target: #login-modal"
                     type="button"><span uk-icon="sign-in"></span>Login</button>
@@ -48,9 +49,6 @@
         <div id="register-modal" uk-modal="">
             <div class="uk-modal-dialog uk-margin-auto-vertical uk-border-rounded">
                 <form action="">
-                    <div class="uk-modal-header uk-border-rounded">
-                        <h2 class="uk-modal-title">Create your free portfolio today!</h2>
-                    </div>
                     <div class="uk-modal-body">
                         <label for="username">Username:</label>
                         <input class="uk-input" type="text" id="username-register" name="username" required>
@@ -73,10 +71,12 @@
                 </form>
             </div>
         </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="/js/index.js"></script>
-
+    </div>
+    <div class="function-btn" id="color-theme-btn"><ion-icon name="sunny-outline"></ion-icon></div>
+    <script type="module" src="/js/dist/ionicons/ionicons.esm.js"></script> 
+    <script nomodule src="/js/dist/ionicons/ionicons.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/index.js"></script>
 </body>
 
 </html>

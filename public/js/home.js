@@ -68,6 +68,7 @@ const changeDefaultTimespan = () => {
             defaultTimespan = 365;
             break;
         default: 
+            defaultTimespan = 7;
             break;
     }
     

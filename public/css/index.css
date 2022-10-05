@@ -12,12 +12,7 @@ html {
 }
 
 #container-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     background-color: rgb(200, 200, 200);
-    border-radius: 10px;
-    height: 60vh;
 }
 
 #container-main .uk-button {
@@ -26,4 +21,39 @@ html {
 
 #container-main h3 {
     margin: 5px 0 20px 0;
+}
+
+.function-btn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+    font-size: 35px;
+    text-align: center;
+    border: 2px solid #002047;
+    cursor: pointer;
+    left: 15px;
+}
+
+.function-btn ion-icon {
+    margin-top: 8px;
+}
+
+.function-btn:hover {
+    color: #025dff !important;
+}
+
+#color-theme-btn {
+    bottom: 10px;
+}
+
+/* Dark mode options */
+
+.dark-background {
+    background-color: #222 !important;
+}
+
+.dark-color {
+    color: white !important;
 }
