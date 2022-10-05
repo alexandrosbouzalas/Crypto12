@@ -136,7 +136,9 @@ $(document).ready(() => {
         axes: true,
         last_days: 7,
         loading_indicator: true,
-        options: {colors: ["#025dff"]}
+        options: {
+            colors: ["#025dff"]
+        }
       });  
 
     setInterval(() => {
@@ -165,7 +167,13 @@ $(document).ready(() => {
     })
 
     $('.buy-btn').click((event) => {
-        alert('test');
+        $('.buy-overlay').slideDown({
+            start: function () {
+                $(this).css({
+                  display: "flex"
+                })
+              }
+        });
     })
 
     $('#color-theme-btn').click(() => {
@@ -177,5 +185,11 @@ $(document).ready(() => {
 
         toggleDarkMode(localStorage.darkMode);
     })
+
+    $(document).keyup(function(e) {
+        if (e.key === "Escape" && $('.buy-overlay').is(':visible')) { 
+            $('.buy-overlay').slideUp();
+       }
+   });
 })
 

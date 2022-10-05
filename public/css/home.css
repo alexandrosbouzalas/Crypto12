@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
+/* Global */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 html {
     width: 100%;
     height: 100vh;
@@ -144,7 +158,7 @@ td > a {
 }
 
 .user-selected-row {
-    background-color: #025dff !important;
+    background-color: #002047 !important;
 }
 
 .user-selected-row {
@@ -202,7 +216,7 @@ td > a {
     padding-inline: 10px;
     font-size: 20px;
     color: white;
-    background-color: green;
+    background-color: #025dff;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -213,7 +227,7 @@ td > a {
 }
 
 .buy-btn:hover {
-    background-color: #005000;
+    opacity: .7;
 }
 
 tbody tr {
@@ -223,11 +237,11 @@ tbody tr {
 }
 
 .up {
-    color: green;
+    color: green !important;
 }
 
 .down {
-    color: red;
+    color: red !important;
 }
 
 .focused { 
@@ -240,7 +254,7 @@ tbody tr {
     position: absolute;
     border-radius: 10px;
     background-color: rgb(200, 200, 200);
-    padding-top: 7px;
+    padding-top: 5px;
     font-size: 35px;
     text-align: center;
     border: 2px solid #002047;
@@ -269,6 +283,90 @@ tbody tr {
 
 .dark-color {
     color: white !important;
+}
+
+/* Buy element */
+
+.buy-overlay {
+    flex-wrap: wrap;
+    position: fixed;
+    justify-content: center;
+    display: none; 
+    width: 50%; 
+    left: 0;
+    right: 0;
+    margin: auto;
+    min-height: 400px; 
+    background-color: #222; 
+    border-radius: 5px;
+    border: 2px solid grey;
+    z-index: 2; 
+}
+
+.buy-overlay .coin-icon {
+    margin: 20px 15px 10px 10px;
+}
+
+.buy-overlay .coin-name-full {
+    margin-top: 20px;
+}
+
+.buy-overlay .coin-name-short {
+    margin: 25px 0 0 5px;
+}
+
+.buy-overlay p {
+    font-size: 25px;
+    color: rgb(200, 200, 200);
+    font-family: 'VW Head', sans-serif;
+}
+
+
+.buy-overlay > div:nth-child(2) { 
+    margin: 25px;
+    border: 2px solid grey;
+}
+
+.info-buy {
+    margin-inline: auto;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.info-buy > p {
+    margin: 5px;
+    font-size: 40px;
+}
+
+.buy-overlay .coin-fluctuation {
+    transform: translateX(-16px);
+}
+
+#amount-select {
+    height: 50px;
+    text-align: center;
+    border: none;
+    font-size: 45px;
+    background-color:  #222;
+    color: #025dff;
+    padding: 5px;
+    font-family: 'VW Head', sans-serif;
+}
+
+#amount-select::placeholder {
+    color: rgb(200, 200, 200);
+}
+
+#amount-select:focus {
+    outline: none;
+    border-color: #002047;
+}
+
+.coin-icon-container.buy-element {
+    justify-content: start;
+    flex-direction: row;
 }
 
 
