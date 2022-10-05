@@ -14,8 +14,8 @@
     <div id="container-main">
         <div class="tab-container">
             <ul class="uk-subnav uk-subnav-divider uk-subnav-pill uk-flex-center">
-                <li><a href="#">Overview</a></li>
-                <li><a href="#">Portfolio</a></li>
+                <li><a id="overview-btn" href="#overview">Overview</a></li>
+                <li><a id="portfolio-btn" href="#portfolio">Portfolio</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -281,14 +281,17 @@
                 </div>
             </div>
         </div>
+        <div id="tab-portfolio" hidden>
+                <h1>Test</h1>
+        </div>
         <div class="function-btn" id="settings-btn" uk-toggle="target: #settings-popup; animation: uk-animation-fade;"><span uk-icon="icon:settings;ratio:2;"></span></div>
         <div class="function-btn" id="color-theme-btn"><ion-icon name="sunny-outline"></ion-icon></div>
         <div class="function-btn" id="exit-btn"><ion-icon name="exit-outline"></ion-icon></div>
-        <div id="settings-popup" class="uk-card uk-card-default uk-card-body uk-border-rounded uk-width-1-4" hidden>
+        <div id="settings-popup" class="uk-card uk-card-default uk-card-body uk-border-rounded  uk-width-1-2 uk-width-1-4@xl" hidden>
             <h3 class="uk-card-title">Settings</h3>
-            <form class="uk-form-horizontal">
+            <form class="uk-form-horizontal uk-width-1-1 uk-flex uk-flex-between">
                 <label class="uk-form-label" for="form-horizontal-select">Currency</label>
-                <div class="uk-form-controls uk-form-width-medium">
+                <div class="uk-form-controls uk-form-width-medium uk-margin-small-left">
                     <select class="uk-select" id="form-stacked-select">
                         <option value="US">US Dollar ($US &#xD9E;) </option>
                         <option value="EUR">Euro (€)</option>
