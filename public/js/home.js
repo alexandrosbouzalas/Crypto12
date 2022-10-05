@@ -190,6 +190,8 @@ $(document).ready(() => {
               }
         });
 
+        $('.amount-select').val('');
+
         const currentRow = $(event.currentTarget).parents().closest('tr');
         const currentCoinNameShort = currentRow.find('.coin-name-short').text();
         const currentCoinNameFull = currentRow.find('.coin-name-full').text();
@@ -200,6 +202,10 @@ $(document).ready(() => {
         $('.buy-overlay .coin-icon').attr('src', currentCoinImgPath);
         $('.buy-overlay .coin-name-full').text(currentCoinNameFull);
         $('.buy-overlay .coin-name-short').text(currentCoinNameShort);
+
+        $('.amount-select-container').eq(1).find('p').text(currentCoinNameShort);
+
+        $('#buy-btn-final').text(currentCoinNameShort + ' Kaufen');
 
     })
 
