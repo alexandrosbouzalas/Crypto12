@@ -268,11 +268,22 @@ tbody tr {
 
 #exit-btn {
     bottom: 15px;
-    left: 15px;
 }
 
 #color-theme-btn {
     bottom: 70px;
+}
+
+#settings-btn {
+    bottom: 125px;
+    font-size: revert;
+    padding-top: 4px;
+}
+
+#settings-popup {
+    position: absolute;
+    left: 70px;
+    bottom: 125px;
 }
 
 /* Dark mode options */

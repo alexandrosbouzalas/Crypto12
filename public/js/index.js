@@ -4,51 +4,53 @@ $('#register-confirm-btn').click(() => {
     
     if(!validateUsername($('#username-register').val())) {
         valid = false; 
-        alert('Benutzername muss mindestens 4 Zeichen lang sein!');
-    };
-    if(!validatePassword($('#password-register').val())) {
+        UIkit.notification({message: 'Username must be at least 4 characters long!', status: 'warning'});
+      };
+      if(!validatePassword($('#password-register').val())) {
         valid = false; 
-        alert('Das Passwort muss mindestens 8 Zeichen lang sein!');
-    }
-    if(!validatePassword($('#password-repeat-register').val())) {
+        UIkit.notification({message: 'The password must be at least 8 characters long!', status: 'warning'});
+      }
+      if(!validatePassword($('#password-repeat-register').val())) {
         valid = false; 
-        alert('Das Passwort muss mindestens 8 Zeichen lang sein!');
-    }
-    if($('#password-register').val() !== $('#password-repeat-register').val()) {
+        UIkit.notification({message: 'The password repeat field must be filled!', status: 'warning'});
+      }
+      if($('#password-register').val() !== $('#password-repeat-register').val()) {
         valid = false; 
-        alert('Passwörter stimmen nicht überein!');
-    }
-
-    if(valid) {
-
+        UIkit.notification({message: 'Passwords do not match!', status: 'warning'});
+      }
+      
+      if(valid) {
+        
         $.ajax({
-            url: "/register",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ data: {username: $('#username-register').val(), password: $('#password-register').val()} }),
-            success: function (response) {
-              $('#login-btn').click();
-            },
-            error: function (err) {
-                // Insert error handling here
-              console.log('There was an error creating your account')
-              console.log(err.responseJSON.msg);
-            },
-          });
-    }
-})
-
-$('#login-confirm-btn').click(() => {
-
-    let valid = true;
+          url: "/register",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({ data: {username: $('#username-register').val(), password: $('#password-register').val()} }),
+          success: function (response) {
+            UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Your account was created successfully!', status: 'success'});
+            $('#login-btn').click();
+          },
+          error: function (err) {
+            // Insert error handling here
+            UIkit.notification({message: 'There was an error creating your account. Please try again later.', status: 'danger'});
+            console.log('There was an error creating your account')
+            console.log(err.responseJSON.msg);
+          },
+        });
+      }
+    })
     
-    if(!validateUsername($('#username-login').val())) {
+    $('#login-confirm-btn').click(() => {
+      
+      let valid = true;
+      
+      if(!validateUsername($('#username-login').val())) {
+        valid = false;
+        UIkit.notification({message: 'Username must be at least 4 characters long', status: 'warning'});
+      };
+      if(!validatePassword($('#password-login').val())) {
         valid = false; 
-        alert('Benutzername muss mindestens 4 Zeichen lang sein!');
-    };
-    if(!validatePassword($('#password-login').val())) {
-        valid = false; 
-        alert('Das Passwort muss mindestens 8 Zeichen lang sein!');
+        UIkit.notification({message: 'The password must be at least 8 characters long!', status: 'warning'});
     }
 
     if(valid) {
@@ -59,11 +61,14 @@ $('#login-confirm-btn').click(() => {
             contentType: "application/json",
             data: JSON.stringify({ data: {username: $('#username-login').val(), password: $('#password-login').val()} }),
             success: function (response) {
+              UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Logging in.', status: 'success'});
               window.location.pathname = '/home';
             },
             error: function (err) {
                 // Insert error handling here
-              console.log('There was an error creating your account')
+              UIkit.notification({message: 'There was an error logging in. Please try again later.', status: 'danger'});
+
+              console.log('There was an error logging in')
               console.log(err.responseJSON.msg);
             },
           });
