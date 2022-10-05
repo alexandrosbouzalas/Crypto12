@@ -300,8 +300,10 @@ tbody tr {
 
 .buy-overlay {
     flex-wrap: wrap;
+    flex-direction: column;
+    top: 0;
     position: fixed;
-    justify-content: center;
+    justify-content: space-between;
     display: none; 
     width: 50%; 
     left: 0;
@@ -333,21 +335,33 @@ tbody tr {
 }
 
 
-.buy-overlay > div:nth-child(2) { 
-    margin: 25px;
-    border: 2px solid grey;
+.buy-overlay > div:nth-child(2) {
+    width: 50%;
+    margin: auto;
+}
+
+.buy-overlay > div:nth-child(1) > div { 
+    display: flex;
+    justify-content: space-between;
+}
+
+.amount-select-container {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.amount-select-container:nth-of-type(1) {
+    border-bottom: 1px solid gray;
 }
 
 .info-buy {
-    margin-inline: auto;
     flex-direction: column;
-    margin-top: 40px;
-    margin-left: 20px;
     display: flex;
 }
 
 .info-buy > p {
-    margin: 5px;
+    margin: 5px 15px 5px 5px;
     font-size: 40px;
 }
 
@@ -355,22 +369,22 @@ tbody tr {
     transform: translateX(-16px);
 }
 
-#amount-select {
+.amount-select {
+    width: 40px;
     height: 50px;
-    text-align: center;
     border: none;
     font-size: 45px;
     background-color:  #222;
     color: #025dff;
-    padding: 5px;
+    padding: 5px 5px 5px 10px;
     font-family: 'VW Head', sans-serif;
 }
 
-#amount-select::placeholder {
+.amount-select::placeholder {
     color: rgb(200, 200, 200);
 }
 
-#amount-select:focus {
+.amount-select:focus {
     outline: none;
     border-color: #002047;
 }

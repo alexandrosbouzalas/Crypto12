@@ -127,6 +127,19 @@ const toggleDarkMode = (darkMode) => {
     }
 }
 
+const limit = (element) => {
+    var max_chars = 7;
+
+    if(element.value.length > max_chars) {
+        element.value = element.value.substr(0, max_chars);
+    }
+}
+
+const resizeInput = (e) => {
+    if($(e.currentTarget).val().length !== 0)
+       $(e.currentTarget).width($(e.currentTarget).val().length + 'ch');
+}
+
 toggleDarkMode(localStorage.darkMode);
 
 $(document).ready(() => {    
@@ -176,6 +189,18 @@ $(document).ready(() => {
                 })
               }
         });
+
+        const currentRow = $(event.currentTarget).parents().closest('tr');
+        const currentCoinNameShort = currentRow.find('.coin-name-short').text();
+        const currentCoinNameFull = currentRow.find('.coin-name-full').text();
+        const currentCoinImgPath = currentRow.find('.coin-icon').attr('src');
+        const currentCoinPrice = currentRow.children().eq(1).text();
+
+        $('.info-buy p').text(currentCoinPrice);
+        $('.buy-overlay .coin-icon').attr('src', currentCoinImgPath);
+        $('.buy-overlay .coin-name-full').text(currentCoinNameFull);
+        $('.buy-overlay .coin-name-short').text(currentCoinNameShort);
+
     })
 
     $('#color-theme-btn').click(() => {
@@ -193,5 +218,8 @@ $(document).ready(() => {
             $('.buy-overlay').slideUp();
        }
    });
+   
+   $('.amount-select-container input').keyup((e) => {resizeInput(e);})
+
 })
 

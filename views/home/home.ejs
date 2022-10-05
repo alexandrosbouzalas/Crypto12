@@ -29,14 +29,17 @@
                         </div>
                         <div class="info-buy">
                             <p class="coin-price">123123$</p>
-                            <p class="coin-fluctuation up">-123123%</p>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <div style="display: flex; margin: auto; justify-content: center;">
+                    <div class="amount-select-container">
                         <p>€</p>
-                        <input id="amount-select" name="amount"type="number" placeholder="0">
+                        <input class="amount-select" name="amount"type="number" onkeydown="limit(this);" onkeyup="limit(this);" placeholder="0">
+                    </div>
+                    <div class="amount-select-container">
+                        <p>€</p>
+                        <input class="amount-select" name="amount"type="number" onkeydown="limit(this);" onkeyup="limit(this);" placeholder="0">
                     </div>
                 </div>
             </div>
