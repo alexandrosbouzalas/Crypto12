@@ -20,7 +20,7 @@
         </div>
         <div class="tab-content">
             <div class="buy-overlay">
-                <div>
+                <div class="buy-content">
                     <div>
                         <div class="coin-icon-container buy-element">
                             <img class="coin-icon" src="/img/b57ac673f06a4b0338a596817eb0a50ce16e2059f327dc117744449a47915cb2.png" alt="">
@@ -31,19 +31,20 @@
                             <p class="coin-price">123123$</p>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="amount-select-container">
-                        <p>€</p>
-                        <input class="amount-select" name="amount"type="number" onkeydown="limit(this);" onkeyup="limit(this);" placeholder="0">
+                    <div style="display: flex; border-bottom: 1px solid grey;">
+                        <div class="amount-select-container">
+                            <p>€</p>
+                            <input class="amount-select" name="amount"type="number" placeholder="0">
+                        </div>
+                        <div id="switch-btn"><ion-icon name="swap-vertical-outline"></ion-icon></div>
                     </div>
-                    <div class="amount-select-container">
-                        <p>€</p>
-                        <input class="amount-select" name="amount"type="number" onkeydown="limit(this);" onkeyup="limit(this);" placeholder="0">
+                    <div class="amount-converted-container">
+                        <p id="converted"></p>
+                        <p></p>
                     </div>
-                </div>
-                <div class="buy-btn-final-container">
-                    <button id="buy-btn-final">test</button>
+                    <div class="buy-btn-final-container">
+                        <button id="buy-btn-final">test</button>
+                    </div>
                 </div>
             </div>
             <div>

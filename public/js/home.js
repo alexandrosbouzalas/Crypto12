@@ -130,17 +130,12 @@ const toggleDarkMode = (darkMode) => {
     }
 }
 
-const limit = (element) => {
-    var max_chars = 7;
+const resizeInput = () => {
+    if($('.amount-select').val().length !== 0)
+       $('.amount-select').width($('.amount-select').val().length + 'ch');
+    else
+    $('.amount-select').css('width', '40px');
 
-    if(element.value.length > max_chars) {
-        element.value = element.value.substr(0, max_chars);
-    }
-}
-
-const resizeInput = (e) => {
-    if($(e.currentTarget).val().length !== 0)
-       $(e.currentTarget).width($(e.currentTarget).val().length + 'ch');
 }
 
 toggleDarkMode(localStorage.darkMode);
@@ -194,19 +189,22 @@ $(document).ready(() => {
         });
 
         $('.amount-select').val('');
+        $('.amount-converted-container p').text('');
 
+        
         const currentRow = $(event.currentTarget).parents().closest('tr');
         const currentCoinNameShort = currentRow.find('.coin-name-short').text();
         const currentCoinNameFull = currentRow.find('.coin-name-full').text();
         const currentCoinImgPath = currentRow.find('.coin-icon').attr('src');
         const currentCoinPrice = currentRow.children().eq(1).text();
-
+        
         $('.info-buy p').text(currentCoinPrice);
         $('.buy-overlay .coin-icon').attr('src', currentCoinImgPath);
         $('.buy-overlay .coin-name-full').text(currentCoinNameFull);
         $('.buy-overlay .coin-name-short').text(currentCoinNameShort);
-
-        $('.amount-select-container').eq(1).find('p').text(currentCoinNameShort);
+        
+        $('.amount-converted-container p:nth-of-type(1)').text('0');
+        $('.amount-converted-container p:nth-of-type(2)').text(currentCoinNameShort);
 
         $('#buy-btn-final').text(currentCoinNameShort + ' Kaufen');
 
@@ -235,7 +233,20 @@ $(document).ready(() => {
        }
    });
    
-   $('.amount-select-container input').keyup((e) => {resizeInput(e);})
+   $('.amount-select-container input').keyup(() => {resizeInput();})
+
+   $('#switch-btn').click(() => {
+    const convertedLabel = $('.amount-converted-container p:nth-of-type(2)').text();
+    const inputLabel = $('.amount-select-container p').text();
+
+    if(['$', '¥', '€'].includes(inputLabel)) {
+        $('.amount-select-container p').text(convertedLabel)
+        $('.amount-converted-container p:nth-of-type(2)').text(inputLabel);
+    } else if(['$', '¥', '€'].includes(convertedLabel)){
+        $('.amount-select-container p').text(convertedLabel)
+        $('.amount-converted-container p:nth-of-type(2)').text(inputLabel);
+    }
+   })
 
 })
 

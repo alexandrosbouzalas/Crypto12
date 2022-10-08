@@ -27,7 +27,7 @@ $('#register-confirm-btn').click(() => {
           contentType: "application/json",
           data: JSON.stringify({ data: {username: $('#username-register').val(), password: $('#password-register').val()} }),
           success: function (response) {
-            UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Your account was created successfully!', status: 'success'});
+            UIkit.notification({message: 'Your account was created successfully!', status: 'success'});
             $('#login-btn').click();
           },
           error: function (err) {
@@ -61,12 +61,12 @@ $('#register-confirm-btn').click(() => {
             contentType: "application/json",
             data: JSON.stringify({ data: {username: $('#username-login').val(), password: $('#password-login').val()} }),
             success: function (response) {
-              UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Logging in.', status: 'success'});
+              UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Logging in...', status: 'success'});
               window.location.pathname = '/home';
             },
             error: function (err) {
                 // Insert error handling here
-              UIkit.notification({message: 'There was an error logging in. Please try again later.', status: 'danger'});
+              UIkit.notification({message: 'Invalid username or password!', status: 'danger'});
 
               console.log('There was an error logging in')
               console.log(err.responseJSON.msg);
