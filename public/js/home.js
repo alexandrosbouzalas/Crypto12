@@ -1,6 +1,12 @@
 
 let defaultTimespan = 7;
-let defaultCurrency = 'EUR';
+let currencies = {
+    EUR: '€',
+    USD: '$',
+    JSP: '¥'
+}
+
+let defaultCurrency = 'USD';
 
 
 $('.tab').click((event) => {
@@ -190,6 +196,7 @@ $(document).ready(() => {
 
         $('.amount-select').val('');
         $('.amount-converted-container p').text('');
+        $('.amount-select-container p').text(currencies[defaultCurrency]);
 
         
         const currentRow = $(event.currentTarget).parents().closest('tr');
@@ -232,6 +239,12 @@ $(document).ready(() => {
             $('.buy-overlay').slideUp();
        }
    });
+
+   $(document).click((e) => {
+        if (!$(e.target).hasClass('buy-btn') && $('.buy-overlay').css('display') === 'flex' && !$(e.target).parents('div.buy-overlay').length) {
+            $('.buy-overlay').slideUp();
+        }
+   })
    
    $('.amount-select-container input').keyup(() => {resizeInput();})
 
