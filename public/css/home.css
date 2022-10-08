@@ -375,6 +375,7 @@ tbody tr {
 }
 
 .amount-select-container {
+    transform: translateX(8px);
     display: flex;
     margin: auto;
     justify-content: center;
@@ -385,6 +386,7 @@ tbody tr {
 }
 
 .selected-tab {
+    color: white !important;
     background-color: #025dff !important;
     pointer-events: none;
 }
@@ -406,6 +408,7 @@ tbody tr {
 #portfolio-btn:hover, #overview-btn:hover {
     background-color: #002047;
 }
+
 .amount-select {
     width: 40px;
     height: 50px;

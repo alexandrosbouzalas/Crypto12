@@ -138,8 +138,8 @@ const toggleDarkMode = (darkMode) => {
 const resizeInput = () => {
     if($('.amount-select').val().length !== 0)
        $('.amount-select').width($('.amount-select').val().length + 'ch');
-    else
-    $('.amount-select').css('width', '40px');
+    else if($('.amount-select').val().length == 0)
+        $('.amount-select').css('width', '40px');
 
 }
 
@@ -193,6 +193,7 @@ $(document).ready(() => {
               }
         });
 
+        $('.amount-select').css('width', '40px');
         $('.amount-select').val('');
         $('.amount-converted-container p').text('');
         $('.amount-select-container p').text(currencies[defaultCurrency]);
@@ -245,7 +246,10 @@ $(document).ready(() => {
         }
    })
    
-   $('.amount-select-container input').keyup(() => {resizeInput();})
+   $('.amount-select-container input').on('input', (e) => {
+        $(e.target).val($(e.target).val().replace(/[^0-9.]/g, ''));
+        resizeInput();
+    })
 
    $('#switch-btn').click(() => {
     const convertedLabel = $('.amount-converted-container p:nth-of-type(2)').text();
@@ -257,6 +261,38 @@ $(document).ready(() => {
     } else if(['$', '¥', '€'].includes(convertedLabel)){
         $('.amount-select-container p').text(convertedLabel)
         $('.amount-converted-container p:nth-of-type(2)').text(inputLabel);
+    }
+   })
+
+   $('#buy-btn-final').click((e) => {
+    valid = true;
+    if($('.amount-select').val().length > 7) {
+        UIkit.notification({message: 'Purchase price can not exceed 9999999!', status: 'warning'});
+        valid = false;
+    }
+    if($('.amount-select').val().length >  0 && !/^[0-9]+$/.test($('.amount-select').val())) {
+        UIkit.notification({message: 'Invalid characters in purchase price!', status: 'warning'})
+        valid = false;
+    }
+    
+    if($('.amount-select').val().length == 0) valid = false; 
+
+    if(valid) {
+        $.ajax({
+            url: "/home/placeOrder",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ amount: amount }),
+            success: function (response) {
+                UIkit.notification({message: 'Order placed successfully!', status: 'success'})
+                $('.buy-overlay').slideUp();
+            },
+            error: function (err) {
+                // Insert error handling here
+                UIkit.notification({message: 'There was an error placing your order!', status: 'error'})
+                console.log(err.statusText)
+            },
+          });
     }
    })
 
