@@ -28,6 +28,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: unset !important;
 }
 
 #container-main {
@@ -265,10 +266,13 @@ tbody tr {
     border: 2px solid #002047;
     cursor: pointer;
     left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .function-btn ion-icon {
-    margin-top: 8px;
+    margin: auto;
 }
 
 .function-btn:hover {
@@ -319,7 +323,7 @@ tbody tr {
     right: 0;
     margin: auto;
     min-height: 400px; 
-    background-color: #222; 
+    background-color: rgb(200, 200, 200); 
     border-radius: 5px;
     border: 2px solid grey;
 }
@@ -342,7 +346,12 @@ tbody tr {
 }
 
 .buy-overlay .coin-name-full {
+    color: grey;
     margin-top: 20px;
+}
+
+.buy-overlay .coin-price {
+    color: grey;
 }
 
 .buy-overlay .coin-name-short {
@@ -351,7 +360,6 @@ tbody tr {
 
 .buy-overlay p {
     font-size: 25px;
-    color: rgb(200, 200, 200);
     font-family: 'VW Head', sans-serif;
 }
 
@@ -372,6 +380,15 @@ tbody tr {
     justify-content: center;
 }
 
+.amount-select-container p {
+    color: grey;
+}
+
+.selected-tab {
+    background-color: #025dff !important;
+    pointer-events: none;
+}
+
 .info-buy {
     flex-direction: column;
     display: flex;
@@ -386,24 +403,28 @@ tbody tr {
     transform: translateX(-16px);
 }
 
+#portfolio-btn:hover, #overview-btn:hover {
+    background-color: #002047;
+}
 .amount-select {
     width: 40px;
     height: 50px;
     border: none;
     font-size: 45px;
-    background-color:  #222;
+    background-color:  rgb(200, 200, 200);
     color: #025dff;
     padding: 5px 5px 5px 10px;
     font-family: 'VW Head', sans-serif;
 }
 
 .amount-select::placeholder {
-    color: rgb(200, 200, 200);
+    color: grey
 }
 
-.amount-select:focus {
+
+.amount-select:focus-visible {
+    border: none;
     outline: none;
-    border-color: #002047;
 }
 
 .coin-icon-container.buy-element {
@@ -446,8 +467,28 @@ tbody tr {
 
 .amount-converted-container p:nth-of-type(2){
     padding-left: 5px;
-    color: rgb(200, 200, 200);
+    color: grey;
 }
+
+/* Uikit overwrites */
+
+#settings-popup.uk-card {
+    background-color: rgb(200, 200, 200);
+}
+
+#form-stacked-select.uk-select {
+    border-color: grey;
+    background-color: rgb(200, 200, 200);
+}
+
+#form-stacked-select.uk-select:focus {
+    background-color: rgb(200, 200, 200);
+}
+
+a {
+    color: unset !important;
+}
+
 /* Media queries */
 
 @media screen and (max-width: 1700px) {

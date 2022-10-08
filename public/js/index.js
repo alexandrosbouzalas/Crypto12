@@ -84,6 +84,7 @@ const toggleDarkMode = (darkMode) => {
       $('#container-main').addClass('dark-background');
       $('#color-theme-btn').addClass('dark-color');
       $('#container-main > h1').addClass('dark-color');
+
     } else {
       
       $('#color-theme-btn').html('<ion-icon name="sunny-outline"></ion-icon>');

@@ -3,7 +3,7 @@ let defaultTimespan = 7;
 let currencies = {
     EUR: '€',
     USD: '$',
-    JSP: '¥'
+    JPY: '¥'
 }
 
 let defaultCurrency = 'USD';
@@ -122,17 +122,16 @@ const toggleDarkMode = (darkMode) => {
         $('#color-theme-btn').html('<ion-icon name="moon-outline"></ion-icon>')
 
         $('#settings-popup').addClass('uk-card-secondary');
-        $('#container-main, .tab').addClass('dark-background');
-        $(".coin-name-full, .coin-price, .tab-label").addClass('dark-color');
-        $('.function-btn').addClass('dark-background dark-color');
+        $(".function-btn, .coin-name-full, .coin-price, .tab-label, #portfolio-btn, #overview-btn").addClass('dark-color');
+        $('#form-stacked-select, #settings-popup, #container-main, .tab, .function-btn, .buy-content, .amount-select').addClass('dark-background');
+
     } else {
         
         $('#color-theme-btn').html('<ion-icon name="sunny-outline"></ion-icon>');
 
         $('#settings-popup').removeClass('uk-card-secondary');
-        $('#container-main, .tab').removeClass('dark-background');
-        $(".coin-name-full, .coin-price, .tab-label").removeClass('dark-color');
-        $('.function-btn').removeClass('dark-background dark-color');
+        $(".function-btn, .coin-name-full, .coin-price, .tab-label, #portfolio-btn, #overview-btn").removeClass('dark-color');
+        $('#form-stacked-select, #settings-popup, #container-main, .tab, .function-btn, .buy-content, .amount-select').removeClass('dark-background');
     }
 }
 
