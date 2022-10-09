@@ -303,6 +303,8 @@ $(document).ready(() => {
                 $('.amount-select-container p').text(convertedLabel)
                 $('.amount-converted-container p:nth-of-type(2)').text(inputLabel);
             }
+
+            currencyToCoin();
         })
 
         $('#buy-btn-final').click((e) => {
