@@ -18,7 +18,11 @@ const orderSchema = new mongoose.Schema({
   cAmount: {
     required: true,
     type: String,
-  }
+  },
+  placedAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("Order", orderSchema);

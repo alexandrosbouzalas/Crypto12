@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
+/* Global */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 html {
     width: 100%;
     height: 100vh;
@@ -14,17 +28,18 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: unset !important;
 }
 
 #container-main {
     display: flex;
     flex-direction: column;
-    justify-content: end;
     background-color: rgb(200, 200, 200);
     border-radius: 10px;
     height: 90vh;
     width: 90%;
     margin: auto;
+    overflow: auto;
 }
 
 .tab-container {
@@ -35,22 +50,23 @@ html {
     margin-inline: auto;
     justify-content: center;
     transform: translateY(2px);
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .tab-content {
     width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-inline: auto;
     border-top: 2px solid grey;
-    height: 80vh;
 }
+
+/* .tab-content > div {
+    margin-top: 40px;
+} */
 
 .tab {
     width: 300px;
     border: 2px solid grey;
+    height: auto;
     margin-inline: 5px;
     border-bottom: none;
     border-top-left-radius: 10px;
@@ -60,46 +76,32 @@ html {
 
 .tab-label {
     font-size: 30px;
-    margin-top: 7px;
+    margin: 7px;
     font-family: 'VW Head', sans-serif;
-    font-weight: bold;
+    font-weight: 400;
     text-align: center;
 }
 
-.active-tab {
-    background: rgb(200, 200, 200);
-}
-
-.active-tab > p {
-    color: #025dff;
-}
-
 .crypto-data-container {
-    width: 60%;
-    float: left; 
-    height: 70vh;
-    border: 3px solid red;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 50%;
+    float: left;
+    padding-right: 30px;
 }
 
 .crypto-chart-container {
-    width: 40%;
+    width: 50%;
     float: right; 
-    height: 70vh;
-    border: 3px solid blue;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    min-height: 70vh;
+    padding-left: 30px;
 }
 
 .crypto-data-container > table {
     border-collapse: collapse;
-    border: 1px solid grey;
-    width: 90%;
-    /* height: 65vh; */
-    margin: auto;
+    width: 100%;
+}
+
+tbody > tr:last-child { 
+    border: none;
 }
 
 .crypto-data-container thead {
@@ -119,9 +121,61 @@ html {
     padding-left: 10px;
 }
 
+.crypto-data-container p {
+    margin-top: 5px;
+    font-size: 20px;
+    color: grey; 
+    font-family: 'VW Text', sans-serif;
+}
+
 td > a {
     display: flex;
     flex-wrap: nowrap;
+}
+
+.timespan-select-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: end;
+    margin: 20px 20px 0 0;
+}
+
+.timespan-select {
+    height: 30px;
+    width: 30px;
+    color: white;
+    background: #025dff;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'VW Head', sans-serif;
+    border-radius: 5px;
+    margin-left: 5px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.timespan-select:hover {
+    opacity: .8;
+}
+
+.user-selected-row {
+    background-color: #002047 !important;
+}
+
+.user-selected-row {
+    color: white !important;
+}
+
+.active-tspan {
+    opacity: unset;
+    pointer-events: none;
+    background: #002047;
+}
+
+#current-chart-coin {
+    font-size: 30px;
+    font-family: 'VW Text', sans-serif;
+    text-align: center;
 }
 
 .coin-icon-container {
@@ -157,49 +211,299 @@ td > a {
     font-family: 'VW Text', sans-serif;
 }
 
-.buy-btn {
+.buy-btn,
+#buy-btn-final {
     height: 40px;
     font-family: 'VW Text', sans-serif;
-    padding-inline: 5px;
+    padding-inline: 10px;
     font-size: 20px;
     color: white;
-    background-color: green;
+    background-color: #025dff;
     border-radius: 5px;
     border: none;
     cursor: pointer;
 }
 
-.buy-btn:hover {
-    background-color: #005000;
+#buy-btn-final {
+    margin-bottom: 30px; 
+}
+
+.buy-btn-container {
+    margin-top: 5px;
+}
+
+.buy-btn:hover, 
+#buy-btn-final:hover {
+    opacity: .7;
 }
 
 tbody tr {
     line-height: 50px;
+    cursor: pointer;
     border-bottom: 1px solid grey;
 }
 
 .up {
-    color: green;
+    color: green !important;
 }
 
 .down {
-    color: red;
+    color: red !important;
+}
+
+.focused { 
+    background-color: grey;
+}
+
+.function-btn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+    font-size: 35px;
+    text-align: center;
+    border: 2px solid #002047;
+    cursor: pointer;
+    left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.function-btn ion-icon {
+    margin: auto;
+}
+
+.function-btn:hover {
+    color: #025dff !important;
 }
 
 #exit-btn {
-    position: absolute;
     bottom: 15px;
-    left: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: rgb(200, 200, 200);
-    padding-top: 7px;
-    font-size: 35px;
-    text-align: center;
-    cursor: pointer;
 }
 
-#exit-btn:hover {
+#color-theme-btn {
+    bottom: 70px;
+}
+
+#settings-btn {
+    bottom: 125px;
+    font-size: revert;
+    padding-top: 4px;
+}
+
+#settings-popup {
+    border: 2px solid grey;
+    position: absolute;
+    left: 70px;
+    bottom: 125px;
+}
+
+/* Dark mode options */
+
+.dark-background {
+    background-color: #222 !important;
+}
+
+.dark-color {
+    color: white !important;
+}
+
+/* Buy element */
+
+.buy-content {
+    overflow: auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+    position: fixed;
+    justify-content: space-between;
+    display: flex; 
+    width: 50%; 
+    left: 0;
+    right: 0;
+    margin: auto;
+    min-height: 400px; 
+    background-color: rgb(200, 200, 200); 
+    border-radius: 5px;
+    border: 2px solid grey;
+}
+
+.buy-overlay {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    z-index: 2; 
+}
+
+.buy-overlay .coin-icon {
+    margin: 20px 15px 10px 10px;
+}
+
+.buy-overlay .coin-name-full {
+    color: grey;
+    margin-top: 20px;
+}
+
+.buy-overlay .coin-price {
+    color: grey;
+}
+
+.buy-overlay .coin-name-short {
+    margin: 25px 0 0 5px;
+}
+
+.buy-overlay p {
+    font-size: 25px;
+    font-family: 'VW Head', sans-serif;
+}
+
+
+.buy-content > div:nth-child(2) {
+    width: 50%;
+    margin: auto;
+}
+
+.buy-content > div:nth-child(1)  { 
+    display: flex;
+    justify-content: space-between;
+}
+
+.amount-select-container {
+    transform: translateX(8px);
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.amount-select-container p {
+    color: grey;
+}
+
+.selected-tab {
+    color: white !important;
+    background-color: #025dff !important;
+    pointer-events: none;
+}
+
+.info-buy {
+    flex-direction: column;
+    display: flex;
+}
+
+.info-buy > p {
+    margin: 5px 15px 5px 5px;
+    font-size: 40px;
+}
+
+.buy-overlay .coin-fluctuation {
+    transform: translateX(-16px);
+}
+
+#portfolio-btn:hover, #overview-btn:hover {
+    color: white !important;
+    background-color: #002047;
+}
+
+.amount-select {
+    max-width: 250px;
+    width: 40px;
+    height: 50px;
+    border: none;
+    font-size: 45px;
+    background-color:  rgb(200, 200, 200);
     color: #025dff;
+    padding: 5px 5px 5px 10px;
+    font-family: 'VW Head', sans-serif;
+}
+
+.amount-select::placeholder {
+    color: grey
+}
+
+
+.amount-select:focus-visible {
+    border: none;
+    outline: none;
+}
+
+.coin-icon-container.buy-element {
+    justify-content: start;
+    flex-direction: row;
+}
+
+.buy-btn-final-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#switch-btn {
+    height: 40px;
+    width: 40px;
+    background-color: #025dff;
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 0 0 7px;
+    transform: translate(5px, 38px);
+}
+
+#switch-btn:hover {
+    color: rgb(200, 200, 200);
+}
+
+.amount-converted-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.amount-converted-container p{
+    margin: 0;
+    color: #025dff;
+}
+
+.amount-converted-container p:nth-of-type(2){
+    padding-left: 5px;
+    color: grey;
+}
+
+/* Uikit overwrites */
+
+#settings-popup.uk-card {
+    background-color: rgb(200, 200, 200);
+}
+
+#form-stacked-select.uk-select {
+    border-color: grey;
+    background-color: rgb(200, 200, 200);
+}
+
+#form-stacked-select.uk-select:focus {
+    background-color: rgb(200, 200, 200);
+}
+
+a {
+    color: unset !important;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 1700px) {
+    .tab-content {
+        flex-direction: column;
+    }
+
+    .crypto-data-container,
+    .crypto-chart-container {
+        width: 100%;
+    }
 }
