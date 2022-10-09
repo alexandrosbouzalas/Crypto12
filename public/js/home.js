@@ -222,6 +222,8 @@ $(document).ready(() => {
                     }
                 });
 
+                $('#switch-btn').removeClass('switched');
+
                 $('.amount-select').css('width', '40px');
                 $('.amount-select').val('');
                 $('.amount-converted-container p').text('');
