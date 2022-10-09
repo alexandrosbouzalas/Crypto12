@@ -6,6 +6,9 @@ let currencies = {
     JPY: '¥'
 }
 
+let currentBuyPrice;
+let coinAmountPerDollar;
+
 let defaultCurrency = 'USD';
 
 
@@ -143,6 +146,11 @@ const resizeInput = () => {
 
 }
 
+const currencyToCoin = () => {
+
+    $('#switch-btn').hasClass('switched') ? $('#converted').text(($('.buy-overlay .amount-select').val() * currentBuyPrice)) : $('#converted').text(($('.buy-overlay .amount-select').val() / currentBuyPrice));
+}
+
 toggleDarkMode(localStorage.darkMode);
 
 $(document).ready(() => {    
@@ -215,6 +223,8 @@ $(document).ready(() => {
 
         $('#buy-btn-final').text(currentCoinNameShort + ' Kaufen');
 
+        currentBuyPrice = $('.buy-overlay .coin-price').text().substring(0, $('.buy-overlay .coin-price').text().length - 1);
+
     })
 
     $('#color-theme-btn').click(() => {
@@ -249,9 +259,19 @@ $(document).ready(() => {
    $('.amount-select-container input').on('input', (e) => {
         $(e.target).val($(e.target).val().replace(/[^0-9.]/g, ''));
         resizeInput();
+        currencyToCoin();
     })
 
    $('#switch-btn').click(() => {
+
+    if($('#switch-btn').hasClass('switched')) {
+        $('#switch-btn').removeClass('switched')
+        //$('.amount-select-container').css('transform', `translateX(${$('.amount-converted-container p:nth-of-type(2)').width()}px)`)
+    } else {
+        //$('.amount-select-container').css('transform', `translateX(-${$('.amount-converted-container p:nth-of-type(2)').width()}px)`)
+        $('#switch-btn').addClass('switched');
+    }
+
     const convertedLabel = $('.amount-converted-container p:nth-of-type(2)').text();
     const inputLabel = $('.amount-select-container p').text();
 

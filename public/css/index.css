@@ -23,6 +23,10 @@ html {
     margin: 5px 0 20px 0;
 }
 
+.uk-button-secondary {
+    background-color: #3d3b3b !important;
+}
+
 .function-btn {
     width: 50px;
     height: 50px;

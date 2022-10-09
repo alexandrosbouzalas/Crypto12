@@ -313,6 +313,7 @@ tbody tr {
 /* Buy element */
 
 .buy-content {
+    overflow: auto;
     flex-wrap: wrap;
     flex-direction: column;
     position: fixed;
@@ -406,10 +407,12 @@ tbody tr {
 }
 
 #portfolio-btn:hover, #overview-btn:hover {
+    color: white !important;
     background-color: #002047;
 }
 
 .amount-select {
+    max-width: 250px;
     width: 40px;
     height: 50px;
     border: none;
