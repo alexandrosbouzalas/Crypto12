@@ -6,7 +6,6 @@ router.use(express.json());
 
 const User = require("./../models/user");
 const Order = require("./../models/order");
-const { response } = require("express");
 
 router.get("/", (req, res) => {
   if (req.session.authenticated) {
@@ -16,17 +15,9 @@ router.get("/", (req, res) => {
   } 
 });
 
-router.post("/fetchCData", (req, res) => {
+router.get("/fetchCData", (req, res) => {
   const baseUrl = "https://api-pub.bitfinex.com/v2/tickers";
 
-  const validCurrencies = ["USD", "EUR", "JPY"];
-
-  if(!validCurrencies.includes(req.body.currency))
-    res.status(404).send("Invalid currency");
-  
-  const currency = req.body.currency
-
-  // const queryParams = `symbols=tBTC${currency},tETH${currency},tSHIB:${currency},tDOGE:${currency},tMATIC:${currency},tLTC${currency},tXMR${currency},tADA${currency},tDOT${currency},tSOL${currency}`
   const queryParams = "symbols=tBTCUSD,tETHUSD,tSHIB:USD,tDOGE:USD,tMATIC:USD,tLTCUSD,tXMRUSD,tADAUSD,tDOTUSD,tSOLUSD"
 
   const KEYS = ['FRR', 'BID', 'BID_PERIOD', 'BID_SIZE', 'ASK', 'ASK_PERIOD', 'ASK_SIZE', 'DAILY_CHANGE', 'DAILY_CHANGE_RELATIVE', 'LAST_PRICE'];
@@ -69,6 +60,20 @@ router.post("/fetchCDataHistory", (req, res) => {
         console.log(error);
         res.status(500).send(error);
       })
+})
+
+router.get('/getCurrencyRates', (req, res)  => {
+
+  axios.get('https://open.er-api.com/v6/latest/USD')
+    .then(response => {
+        const rates = response.data.rates;
+
+        res.send({JPY: rates.JPY, EUR: rates.EUR})
+    }, error => {
+        console.log(error);
+        res.status(500).send(error);
+      })
+
 })
 
 module.exports = router;
