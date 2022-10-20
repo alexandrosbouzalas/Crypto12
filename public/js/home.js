@@ -43,7 +43,7 @@ const fetchTickers = () => {
             changeCurrency(defaultCurrency, response);
         },
         error: function (err) {
-            UIkit.notification({message: 'There was an error fetching crypto data!', status: 'error'}) ;
+            UIkit.notification({message: 'There was an error fetching crypto data!', status: 'danger'}) ;
             console.log(err.statusText)
         },
       });
@@ -163,7 +163,8 @@ const resizeInput = () => {
 
 const currencyToCoin = () => {
 
-    $('#switch-btn').hasClass('switched') ? $('#converted').text(($('.buy-overlay .amount-select').val() * currentBuyPrice)) : $('#converted').text(($('.buy-overlay .amount-select').val() / currentBuyPrice));
+    if($('.amount-select').val() !== '.')
+        $('#switch-btn').hasClass('switched') ? $('#converted').text(($('.buy-overlay .amount-select').val() * currentBuyPrice)) : $('#converted').text(($('.buy-overlay .amount-select').val() / currentBuyPrice));
 }
 
 toggleDarkMode(localStorage.darkMode);
@@ -280,7 +281,10 @@ $(document).ready(() => {
         })
         
         $('.amount-select-container input').on('input', (e) => {
-                $(e.target).val($(e.target).val().replace(/[^0-9.]/g, ''));
+                $(e.target).val($(e.target).val().replace(/[^\d\.]/g, '')
+                .replace('.', '%FD%') 
+                .replace(/\./g, '') 
+                .replace('%FD%', '.')) 
                 resizeInput();
                 currencyToCoin();
             })
@@ -310,17 +314,32 @@ $(document).ready(() => {
         })
 
         $('#buy-btn-final').click((e) => {
+            
             valid = true;
-            if($('.amount-select').val().length > 7) {
+            if($('.amount-select').val() > 9999999) {
                 UIkit.notification({message: 'Purchase price can not exceed 9999999!', status: 'warning'});
                 valid = false;
             }
-            if($('.amount-select').val().length >  0 && !/^[0-9]+$/.test($('.amount-select').val())) {
-                UIkit.notification({message: 'Invalid characters in purchase price!', status: 'warning'})
+            if($('.amount-select').val().length >  0 && !/[^0-9.]$/.test($('.amount-select').val())) {
+                valid = false;
+            }
+
+            if($('.amount-select').val()[0] === '.') {
+                $('.amount-select').val('0' + $('.amount-select').val());
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+                valid = false;
+            }
+
+            if($('.amount-select').val()[$('.amount-select').val().length - 1] === '.') {
+                $('.amount-select').val($('.amount-select').val() + '0');
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
                 valid = false;
             }
             
             if($('.amount-select').val().length == 0) valid = false; 
+
+            $('.amount-select').val(parseFloat($('.amount-select').val()));
+            $('.amount-select').width($('.amount-select').val().length + 'ch');
 
             if(valid) {
                 $.ajax({
@@ -334,7 +353,7 @@ $(document).ready(() => {
                     },
                     error: function (err) {
                         // Insert error handling here
-                        UIkit.notification({message: 'There was an error placing your order!', status: 'error'})
+                        UIkit.notification({message: 'There was an error placing your order!', status: 'danger'})
                         console.log(err.statusText)
                     },
                 });
@@ -342,7 +361,7 @@ $(document).ready(() => {
         })
         },
         error: function (err) {
-            UIkit.notification({message: 'There was an error fetching currency exchange rates!', status: 'error'})
+            UIkit.notification({message: 'There was an error fetching currency exchange rates!', status: 'danger'})
             console.log(err.statusText)
         },
       });

@@ -25,18 +25,17 @@ router.get("/fetchCData", (req, res) => {
 
   axios.get(`${baseUrl}?${queryParams}`)
     .then(response => {
-
       for (let coin of response.data) {
         JSONCData[coin[0]] = {};
         KEYS.forEach((coinattr, i) => {
           JSONCData[coin[0]][KEYS[i]] = coin[i + 1];
         })
       }
-
       res.send(JSONCData);
+
     }, error => {
-        res.send(error)
-        console.log(error); 
+        res.status(503).send(error);
+        console.log(error);
     })
 })
 
