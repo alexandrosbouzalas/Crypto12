@@ -31,6 +31,20 @@ html {
     color: unset !important;
 }
 
+.pulse {
+    background-color: green !important;
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% {
+      box-shadow: 0 0 0 0px rgba(150, 150, 150, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(150, 150, 150, 0);
+    }
+  }
+
 .disabled {
     pointer-events: none;
     background-color: gray !important;

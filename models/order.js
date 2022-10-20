@@ -19,6 +19,10 @@ const orderSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  oCurrency: {
+    required: true,
+    type: String,
+  },
   placedAt: {
     type: Date,
     default: Date.now(),
