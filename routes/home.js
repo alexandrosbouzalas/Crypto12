@@ -6,6 +6,7 @@ router.use(express.json());
 
 const User = require("./../models/user");
 const Order = require("./../models/order");
+const { Router, response } = require("express");
 
 router.get("/", (req, res) => {
   if (req.session.authenticated) {
@@ -72,6 +73,29 @@ router.get('/getCurrencyRates', (req, res)  => {
         console.log(error);
         res.status(500).send(error);
       })
+
+})
+
+
+router.post('/placeOrder', (req, res) => {
+
+  const {coin, price, currency} = req.body.data;
+
+  if(price > 9999999 || price.length === 0)
+    res.status(400).send('Invalid purchase price');
+
+  if(price.length >  0 && /[^0-9.]$/.test(price))
+    res.status(400).send('Invalid purchase price');
+
+
+  if(price[0] === '.')
+      price = '0' + price;
+  if(price[price.length - 1] === '.')
+      price = price + '0';
+
+  console.log(coin, parseFloat(price), currency)
+
+  res.status(200).send('SUCCESS');
 
 })
 

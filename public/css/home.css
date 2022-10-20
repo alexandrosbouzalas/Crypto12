@@ -31,6 +31,11 @@ html {
     color: unset !important;
 }
 
+.disabled {
+    pointer-events: none;
+    background-color: gray !important;
+}
+
 #container-main {
     display: flex;
     flex-direction: column;

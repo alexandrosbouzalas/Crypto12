@@ -281,13 +281,19 @@ $(document).ready(() => {
         })
         
         $('.amount-select-container input').on('input', (e) => {
+
+            if($('.amount-select').val().length > 0) {
+                $('#buy-btn-final').removeClass('disabled');
                 $(e.target).val($(e.target).val().replace(/[^\d\.]/g, '')
                 .replace('.', '%FD%') 
                 .replace(/\./g, '') 
                 .replace('%FD%', '.')) 
                 resizeInput();
-                currencyToCoin();
-            })
+            } else {
+                $('#buy-btn-final').addClass('disabled');
+            }
+            currencyToCoin();
+        })
 
         $('#switch-btn').click(() => {
 
@@ -316,11 +322,18 @@ $(document).ready(() => {
         $('#buy-btn-final').click((e) => {
             
             valid = true;
-            if($('.amount-select').val() > 9999999) {
+
+            let price;
+
+            $('#switch-btn').hasClass('switched') ? price = $('#converted').text() : price = $('.amount-select').val();
+
+            if(price > 9999999) {
                 UIkit.notification({message: 'Purchase price can not exceed 9999999!', status: 'warning'});
                 valid = false;
             }
-            if($('.amount-select').val().length >  0 && !/[^0-9.]$/.test($('.amount-select').val())) {
+
+            if($('.amount-select').val().length >  0 && /[^0-9.]$/.test($('.amount-select').val())) {
+                UIkit.notification({message: 'Purchase price contains invalid characters!', status: 'warning'});
                 valid = false;
             }
 
@@ -338,15 +351,17 @@ $(document).ready(() => {
             
             if($('.amount-select').val().length == 0) valid = false; 
 
-            $('.amount-select').val(parseFloat($('.amount-select').val()));
-            $('.amount-select').width($('.amount-select').val().length + 'ch');
+            if($('.amount-select').val().length > 0 && !/[^0-9.]$/.test($('.amount-select').val())) {
+                $('.amount-select').val(parseFloat($('.amount-select').val()));
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+            }
 
             if(valid) {
                 $.ajax({
                     url: "/home/placeOrder",
                     method: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ amount: amount }),
+                    data: JSON.stringify({data: { coin: $('.buy-overlay .coin-name-short').text(), price: price, currency: defaultCurrency}}),
                     success: function (response) {
                         UIkit.notification({message: 'Order placed successfully!', status: 'success'})
                         $('.buy-overlay').slideUp();
