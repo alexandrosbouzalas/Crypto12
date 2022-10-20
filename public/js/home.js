@@ -167,6 +167,76 @@ const currencyToCoin = () => {
         $('#switch-btn').hasClass('switched') ? $('#converted').text(($('.buy-overlay .amount-select').val() * currentBuyPrice)) : $('#converted').text(($('.buy-overlay .amount-select').val() / currentBuyPrice));
 }
 
+const enableBuyBtnFinal = () => {
+
+    $('#buy-btn-final').click((e) => {
+            
+        $('#buy-btn-final').text('Sind Sie sich sicher?');
+
+        $('#buy-btn-final').addClass('pulse preconfirmed');
+
+        $('.preconfirmed').click((e) => {
+
+            valid = true;
+
+            let price;
+
+            $('#switch-btn').hasClass('switched') ? price = $('#converted').text() : price = $('.amount-select').val();
+            !$('#switch-btn').hasClass('switched') ? amount = $('#converted').text() : amount = $('.amount-select').val();
+
+            if(price > 999999) {
+                UIkit.notification({message: 'Purchase price can not exceed 999999!', status: 'warning'});
+                valid = false;
+            }
+
+            if($('.amount-select').val().length >  0 && /[^0-9.]$/.test($('.amount-select').val())) {
+                UIkit.notification({message: 'Purchase price contains invalid characters!', status: 'warning'});
+                valid = false;
+            }
+
+            if($('.amount-select').val()[0] === '.') {
+                $('.amount-select').val('0' + $('.amount-select').val());
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+                valid = false;
+            }
+
+            if($('.amount-select').val()[$('.amount-select').val().length - 1] === '.') {
+                $('.amount-select').val($('.amount-select').val() + '0');
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+                valid = false;
+            }
+            
+            if($('.amount-select').val().length == 0) valid = false; 
+
+            if($('.amount-select').val().length > 0 && !/[^0-9.]$/.test($('.amount-select').val())) {
+                $('.amount-select').val(parseFloat($('.amount-select').val()));
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+            }
+
+            if(valid) {
+                $.ajax({
+                    url: "/home/placeOrder",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({data: { coin: $('.buy-overlay .coin-name-short').text(), price: price, amount: amount, currency: defaultCurrency}}),
+                    success: function (response) {
+                        UIkit.notification({message: 'Order placed successfully!', status: 'success'})
+                        $('.buy-overlay').slideUp();
+                    },
+                    error: function (err) {
+                        // Insert error handling here
+                        UIkit.notification({message: 'There was an error placing your order!', status: 'danger'})
+                        console.log(err.statusText)
+                    },
+                });
+            }
+
+        })
+
+    })
+
+}
+
 toggleDarkMode(localStorage.darkMode);
 
 $(document).ready(() => { 
@@ -226,8 +296,11 @@ $(document).ready(() => {
                 $('#switch-btn').removeClass('switched');
                 $('#buy-btn-final').removeClass('pulse preconfirmed');
 
-
                 $('#buy-btn-final').addClass('disabled');
+
+                $('#buy-btn-final').off();    
+                
+                enableBuyBtnFinal();
 
                 $('.amount-select').css('width', '40px');
                 $('.amount-select').val('');
@@ -295,7 +368,11 @@ $(document).ready(() => {
                 .replace('%FD%', '.')) 
                 resizeInput();
             } else {
+                $('#buy-btn-final').removeClass('pulse preconfirmed');
+                $('#buy-btn-final').text($('.buy-overlay .coin-name-short').text() + ' Kaufen');
                 $('#buy-btn-final').addClass('disabled');
+                $('#buy-btn-final').off();
+                enableBuyBtnFinal();
             }
             currencyToCoin();
         })
@@ -322,71 +399,7 @@ $(document).ready(() => {
             currencyToCoin();
         })
 
-        $('#buy-btn-final').click((e) => {
-            
-            $('#buy-btn-final').text('Sind Sie sich sicher?');
-
-            $('#buy-btn-final').addClass('pulse preconfirmed');
-
-            $('.preconfirmed').click((e) => {
-    
-                valid = true;
-    
-                let price;
-    
-                $('#switch-btn').hasClass('switched') ? price = $('#converted').text() : price = $('.amount-select').val();
-                !$('#switch-btn').hasClass('switched') ? amount = $('#converted').text() : amount = $('.amount-select').val();
-    
-                if(price > 999999) {
-                    UIkit.notification({message: 'Purchase price can not exceed 999999!', status: 'warning'});
-                    valid = false;
-                }
-    
-                if($('.amount-select').val().length >  0 && /[^0-9.]$/.test($('.amount-select').val())) {
-                    UIkit.notification({message: 'Purchase price contains invalid characters!', status: 'warning'});
-                    valid = false;
-                }
-    
-                if($('.amount-select').val()[0] === '.') {
-                    $('.amount-select').val('0' + $('.amount-select').val());
-                    $('.amount-select').width($('.amount-select').val().length + 'ch');
-                    valid = false;
-                }
-    
-                if($('.amount-select').val()[$('.amount-select').val().length - 1] === '.') {
-                    $('.amount-select').val($('.amount-select').val() + '0');
-                    $('.amount-select').width($('.amount-select').val().length + 'ch');
-                    valid = false;
-                }
-                
-                if($('.amount-select').val().length == 0) valid = false; 
-    
-                if($('.amount-select').val().length > 0 && !/[^0-9.]$/.test($('.amount-select').val())) {
-                    $('.amount-select').val(parseFloat($('.amount-select').val()));
-                    $('.amount-select').width($('.amount-select').val().length + 'ch');
-                }
-    
-                if(valid) {
-                    $.ajax({
-                        url: "/home/placeOrder",
-                        method: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify({data: { coin: $('.buy-overlay .coin-name-short').text(), price: price, amount: amount, currency: defaultCurrency}}),
-                        success: function (response) {
-                            UIkit.notification({message: 'Order placed successfully!', status: 'success'})
-                            $('.buy-overlay').slideUp();
-                        },
-                        error: function (err) {
-                            // Insert error handling here
-                            UIkit.notification({message: 'There was an error placing your order!', status: 'danger'})
-                            console.log(err.statusText)
-                        },
-                    });
-                }
-    
-            })
-
-        })
+        enableBuyBtnFinal();
 
       },
       error: function (err) {
