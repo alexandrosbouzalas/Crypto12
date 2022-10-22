@@ -6,6 +6,7 @@ router.use(express.json());
 
 const User = require("./../models/user");
 const Order = require("./../models/order");
+const { request, response } = require("express");
 
 getCurrencyRates = async () => {
 
@@ -159,7 +160,67 @@ router.post('/placeOrder', async (req, res) => {
     res.status(403).send();    
   }
 
+})
 
+router.get('/getUserOrders', async (req, res) => {
+  if(req.session.authenticated) {
+
+    const user = await User.findOne({userId: req.session.user.username});
+
+    if(user) {
+
+      const userOrders = await Order.find({userId: user.userId});
+
+      if(userOrders) {
+        res.status(200).send(userOrders);
+      } else {
+        res.status(200).send("This user has not placed any orders");
+      }
+
+    } else {
+      res.status(403).send("User not found");
+    }
+
+  }
+})
+
+router.get('/getUserCryptoData', async (req, res) => {
+  if(req.session.authenticated) {
+
+    try {
+
+      const user = await User.findOne({username: req.session.user.username});
+  
+      if(user) {
+        
+        const distinctCoinAmountSum = await Order.aggregate([
+          {
+            $match: {
+              uId: user.uId
+            }
+          },
+          {
+            $group: {
+              _id: "$cId",
+              cAmount: {
+                $sum: "$cAmount"
+              },
+              count: {
+                $sum: 1
+              }
+            }
+          }
+        ])
+  
+        if(distinctCoinAmountSum.length > 0)
+          res.status(200).send(distinctCoinAmountSum);
+        else 
+          res.status(200).send("No data found for this user");
+      }
+    } catch(err) {
+      res.status(500).send(err);
+    }
+  }
 })
 
 module.exports = router;

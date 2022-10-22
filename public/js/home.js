@@ -139,6 +139,40 @@ const toggleDarkMode = (darkMode) => {
     }
 }
 
+const getUserOrders = () => {
+
+    $.ajax({
+        url: "/home/getUserOrders",
+        method: "GET",
+        contentType: "application/json",
+        success: (response) => {
+            console.table(response)
+        },
+        error: (error) => {
+            console.log(error)
+            UIkit.notification({message: 'There was an error fetching user orders', status: 'danger'})
+        }
+    })
+
+}
+
+const getUserCryptoData = () => {
+
+    $.ajax({
+        url: "/home/getUserCryptoData",
+        method: "GET",
+        contentType: "application/json",
+        success: (response) => {
+            console.table(response)
+        },
+        error: (error) => {
+            console.log(error)
+            UIkit.notification({message: 'There was an error fetching user portfolio', status: 'danger'})
+        }
+    })
+
+}
+
 const changeCurrency = (to, cryptoData) => {
 
     if(to === 'USD') insertDataIntoTable(cryptoData);
@@ -345,6 +379,8 @@ $(document).ready(() => {
                 $('#portfolio-btn').addClass('selected-tab');
                 $('#overview-tab').removeClass('visible').addClass('hidden');
                 $('#portfolio-tab').removeClass('hidden').addClass('visible');
+
+                getUserCryptoData();
 
             })
 

@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   uId: {
-    type: String,
+    type: Number,
     required: true,
   },
   oId: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
   },

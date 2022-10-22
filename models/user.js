@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     default: Date.now(),
   },
   uId: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
   },

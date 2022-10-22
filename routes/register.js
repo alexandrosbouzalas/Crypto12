@@ -32,41 +32,45 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
   req.body = sanitize(req.body);
 
-  const { username, password } = req.body.data;
-
-  if (password.length < 8)
-    throw new Error("Invalid password");
-  if (username.length < 4)
-    throw new Error("Invalid username");
-
-  const usernameCount = await User.aggregate([{ $count: "username" }]);
-
-  let count = 1;
-
-  if (usernameCount.length != 0) count = usernameCount[0].username;
-
-  const uId = Math.floor(count + Math.random() * 9000).toString();
-
-  const user = new User({
-    username: username,
-    password: await bcryptHash(password),
-    uId: uId,
-  });
-
   try {
-    await user.save();
-
-    res.status(200).json({ msg: "Success" });
-  } catch (e) {
-    var status = res.status(500);
-    if (e.message.includes("username"))
-      status.json({
-        msg: `Username "${username}" already exists`,
-      });
-    else
-      status.json({ msg: "There was a problem processing your request" });
-
-    console.log(e.message);
+    const { username, password } = req.body.data;
+  
+    if (password.length < 8)
+      throw new Error("Invalid password");
+    if (username.length < 4)
+      throw new Error("Invalid username");
+  
+    const usernameCount = await User.aggregate([{ $count: "username" }]);
+  
+    let count = 1;
+  
+    if (usernameCount.length != 0) count = usernameCount[0].username;
+  
+    const uId = Math.floor(count + Math.random() * 9000).toString();
+  
+    const user = new User({
+      username: username,
+      password: await bcryptHash(password),
+      uId: uId,
+    });
+  
+    try {
+      await user.save();
+  
+      res.status(200).json({ msg: "Success" });
+    } catch (e) {
+      var status = res.status(400);
+      if (e.message.includes("username"))
+        status.json({
+          msg: `Username "${username}" already exists`,
+        });
+      else
+        status.json({ msg: "There was a problem processing your request" });
+  
+      console.log(e.message);
+    }
+  } catch(err) {
+    res.status(500).send("There was an error during the registration process");
   }
 });
 
