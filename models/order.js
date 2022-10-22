@@ -17,7 +17,7 @@ const orderSchema = new mongoose.Schema({
   },
   cAmount: {
     required: true,
-    type: String,
+    type: Number,
   },
   oCurrency: {
     required: true,

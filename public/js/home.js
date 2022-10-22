@@ -163,14 +163,85 @@ const getUserCryptoData = () => {
         method: "GET",
         contentType: "application/json",
         success: (response) => {
-            console.table(response)
+
+            if(!response.includes("No data")) {
+
+                let chartStatus = Chart.getChart("coinchart");
+                if (chartStatus != undefined) {
+                  chartStatus.destroy();
+                }
+    
+    
+                const coincolors = {
+                    BTC: '#f7931a',
+                    ETH: '#627eea',
+                    SHIB: '#1c2951',
+                    DOGE: '#c3a634',
+                    MATIC: '#8247e5',
+                    LTC: '#a5a8a9',
+                    XMR: '#ff6600',
+                    ADA: '#0033ad',
+                    DOT: '#e6007a',
+                    SOL: '#35c8ba'
+                }
+    
+                const labels = [];
+                const coindata = [];
+                const colors = [];
+    
+                for(let coin of response) {
+                    labels.push(coin._id);
+                    coindata.push(coin.cAmount);
+                    colors.push(coincolors[coin._id])
+                }
+    
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                      backgroundColor: colors,
+                      data: coindata,
+                      borderRadius: 7,
+                      borderSkipped: false,
+                      pointRadius: 6,
+                      pointHoverRadius: 7
+                    }],
+                  };
+                  
+                  const config = {
+                    type: 'pie',
+                    data: data,
+                    options: {
+                        responsive:true,
+                        maintainAspectRatio: false,
+                        plugins: {  
+                            legend: {
+                              labels: {
+                                color: "white",  
+                                font: {
+                                  size: 12
+                                }
+                              }
+                            }
+                          },
+                    }
+                  };
+    
+                  
+            
+                  const coinchart = new Chart(
+                    $('#coinchart'),
+                    config
+                  );
+            } else {
+                $('.chart-container').before('<h1 style="color: white">No data found</h1>')
+            }
+
         },
         error: (error) => {
             console.log(error)
             UIkit.notification({message: 'There was an error fetching user portfolio', status: 'danger'})
         }
     })
-
 }
 
 const changeCurrency = (to, cryptoData) => {
@@ -205,7 +276,7 @@ const enableBuyBtnFinal = () => {
 
     $('#buy-btn-final').click((e) => {
             
-        $('#buy-btn-final').text('Sind Sie sich sicher?');
+        $('#buy-btn-final').text('Kauf bestätigen?');
 
         $('#buy-btn-final').addClass('pulse preconfirmed');
 
