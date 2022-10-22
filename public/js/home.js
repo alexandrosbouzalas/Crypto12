@@ -340,6 +340,21 @@ $(document).ready(() => {
                 toggleDarkMode(localStorage.darkMode);
             })
 
+            $('#portfolio-btn').click(() => {
+                $('.selected-tab').removeClass('selected-tab');
+                $('#portfolio-btn').addClass('selected-tab');
+                $('#overview-tab').removeClass('visible').addClass('hidden');
+                $('#portfolio-tab').removeClass('hidden').addClass('visible');
+
+            })
+
+            $('#overview-btn').click(() => {
+                $('.selected-tab').removeClass('selected-tab');
+                $('#overview-btn').addClass('selected-tab');
+                $('#portfolio-tab').removeClass('visible').addClass('hidden');
+                $('#overview-tab').removeClass('hidden').addClass('visible');
+            })
+
             $('#form-stacked-select').change(() => {
                 defaultCurrency =  $('#form-stacked-select').val();      
                 fetchTickers();

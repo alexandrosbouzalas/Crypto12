@@ -19,273 +19,275 @@
             </ul>
         </div>
         <div class="tab-content">
-            <div class="buy-overlay">
-                <div class="buy-content">
-                    <div>
-                        <div class="coin-icon-container buy-element">
-                            <img class="coin-icon" src="" alt="">
-                            <span class="coin-name-full"></span>
-                            <span class="coin-name-short"></span>
+            <div id="overview-tab" class="visible">
+                <div class="buy-overlay">
+                    <div class="buy-content">
+                        <div>
+                            <div class="coin-icon-container buy-element">
+                                <img class="coin-icon" src="" alt="">
+                                <span class="coin-name-full"></span>
+                                <span class="coin-name-short"></span>
+                            </div>
+                            <div class="info-buy">
+                                <p class="coin-price"></p>
+                            </div>
                         </div>
-                        <div class="info-buy">
-                            <p class="coin-price"></p>
+                        <div style="display: flex; border-bottom: 1px solid grey;">
+                            <div class="amount-select-container">
+                                <p></p>
+                                <input class="amount-select" type="text" placeholder="0">
+                            </div>
+                            <div style="width: auto;">
+                                <div id="switch-btn"><ion-icon name="swap-vertical-outline"></ion-icon></div>
+                            </div>
                         </div>
-                    </div>
-                    <div style="display: flex; border-bottom: 1px solid grey;">
-                        <div class="amount-select-container">
+                        <div class="amount-converted-container">
+                            <p id="converted"></p>
                             <p></p>
-                            <input class="amount-select" type="text" placeholder="0">
                         </div>
-                        <div style="width: auto;">
-                            <div id="switch-btn"><ion-icon name="swap-vertical-outline"></ion-icon></div>
+                        <div class="buy-btn-final-container">
+                            <button class="disabled" id="buy-btn-final"></button>
                         </div>
-                    </div>
-                    <div class="amount-converted-container">
-                        <p id="converted"></p>
-                        <p></p>
-                    </div>
-                    <div class="buy-btn-final-container">
-                        <button class="disabled" id="buy-btn-final"></button>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div class="crypto-data-container">
-                    <table>
-                        <thead>
-                            <th>Name</th>
-                            <th>Preis</th>
-                            <th>Unterschied</th>
-                            <th>Traden</th>
-                        </thead>
-                        <tbody>
-                            <tr class="focused">
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/b57ac673f06a4b0338a596817eb0a50ce16e2059f327dc117744449a47915cb2.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Bitcoin</span>
-                                            <span class="coin-name-short">BTC</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation up"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/4113b082d21cc5fab17fc8f2d19fb996165bcce635e6900f7fc2d57c4ef33ae9.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Ethereum</span>
-                                            <span class="coin-name-short">ETH</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/a7309384448163db7e3e9fded23cd6ecf3ea6e1fb3800cab216acb7fc85f9563.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">SHIBA INU</span>
-                                            <span class="coin-name-short">SHIB</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/1597d628dd19b7885433a2ac2d7de6ad196c519aeab4bfe679706aacbf1df78a.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Dogecoin</span>
-                                            <span class="coin-name-short">DOGE</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/57f28803aad363f419a950a5f5b99acfd4fba8b683c01b9450baab43c9fa97ea.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Polygon</span>
-                                            <span class="coin-name-short">MATIC</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/984a4fe2ba5b2c325c06e4c2f3ba3f1c1fef1f157edb3b8ebbfe234340a157a5.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Litecoin</span>
-                                            <span class="coin-name-short">LTC</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/a6f13081ab7468290003b49b78fc383614e113700a151a4f9794c556f5c3ca9a.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Monero</span>
-                                            <span class="coin-name-short">XMR</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>                          
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/a55046bc53c5de686bf82a2d9d280b006bd8d2aa1f3bbb4eba28f0c69c7597da.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Cardano</span>
-                                            <span class="coin-name-short">ADA</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr> 
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/f786d2f3573f77db841b406bf607ac7ddfe70d533acc6d05f2cb3cb3eab11925.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Polkadot</span>
-                                            <span class="coin-name-short">DOT</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a>
-                                        <div class="coin-icon-container">
-                                            <img class="coin-icon" src="/img/fd6899026b1e517bbb7995e5c992c71dc33b85edb3b28b66591579d6706deab2.png" alt="">
-                                        </div>
-                                        <div class="coin-name-container">
-                                            <span class="coin-name-full">Solana</span>
-                                            <span class="coin-name-short">SOL</span>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="coin-price"></td>
-                                <td class="coin-fluctuation"></td>
-                                <td>
-                                    <div class="buy-btn-container">
+                <div>
+                    <div class="crypto-data-container">
+                        <table>
+                            <thead>
+                                <th>Name</th>
+                                <th>Preis</th>
+                                <th>Unterschied</th>
+                                <th>Traden</th>
+                            </thead>
+                            <tbody>
+                                <tr class="focused">
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/b57ac673f06a4b0338a596817eb0a50ce16e2059f327dc117744449a47915cb2.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Bitcoin</span>
+                                                <span class="coin-name-short">BTC</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation up"></td>
+                                    <td>
                                         <div class="buy-btn-container">
-                                        <button class="buy-btn">Kaufen</button>
-                                    </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>* Der Preisunterschied entsteht aus der Differenz des gestrigen Höchststands und dem aktuellen Preis</p>
-                </div>
-                <div class="crypto-chart-container">
-                    <div class="timespan-select-container">
-                        <div class="timespan-select">
-                            <p>1T</p>
-                        </div>
-                        <div class="timespan-select active-tspan">
-                            <p>1W</p>
-                        </div>
-                        <div class="timespan-select">
-                            <p>1M</p>
-                        </div>
-                        <div class="timespan-select">
-                            <p>1J</p>
-                        </div>
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/4113b082d21cc5fab17fc8f2d19fb996165bcce635e6900f7fc2d57c4ef33ae9.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Ethereum</span>
+                                                <span class="coin-name-short">ETH</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/a7309384448163db7e3e9fded23cd6ecf3ea6e1fb3800cab216acb7fc85f9563.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">SHIBA INU</span>
+                                                <span class="coin-name-short">SHIB</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/1597d628dd19b7885433a2ac2d7de6ad196c519aeab4bfe679706aacbf1df78a.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Dogecoin</span>
+                                                <span class="coin-name-short">DOGE</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/57f28803aad363f419a950a5f5b99acfd4fba8b683c01b9450baab43c9fa97ea.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Polygon</span>
+                                                <span class="coin-name-short">MATIC</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/984a4fe2ba5b2c325c06e4c2f3ba3f1c1fef1f157edb3b8ebbfe234340a157a5.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Litecoin</span>
+                                                <span class="coin-name-short">LTC</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/a6f13081ab7468290003b49b78fc383614e113700a151a4f9794c556f5c3ca9a.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Monero</span>
+                                                <span class="coin-name-short">XMR</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>                          
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/a55046bc53c5de686bf82a2d9d280b006bd8d2aa1f3bbb4eba28f0c69c7597da.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Cardano</span>
+                                                <span class="coin-name-short">ADA</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/f786d2f3573f77db841b406bf607ac7ddfe70d533acc6d05f2cb3cb3eab11925.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Polkadot</span>
+                                                <span class="coin-name-short">DOT</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a>
+                                            <div class="coin-icon-container">
+                                                <img class="coin-icon" src="/img/fd6899026b1e517bbb7995e5c992c71dc33b85edb3b28b66591579d6706deab2.png" alt="">
+                                            </div>
+                                            <div class="coin-name-container">
+                                                <span class="coin-name-full">Solana</span>
+                                                <span class="coin-name-short">SOL</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="coin-price"></td>
+                                    <td class="coin-fluctuation"></td>
+                                    <td>
+                                        <div class="buy-btn-container">
+                                            <div class="buy-btn-container">
+                                            <button class="buy-btn">Kaufen</button>
+                                        </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>* Der Preisunterschied entsteht aus der Differenz des gestrigen Höchststands und dem aktuellen Preis</p>
                     </div>
-                    <div id="chart"></div>
+                    <div class="crypto-chart-container">
+                        <div class="timespan-select-container">
+                            <div class="timespan-select">
+                                <p>1T</p>
+                            </div>
+                            <div class="timespan-select active-tspan">
+                                <p>1W</p>
+                            </div>
+                            <div class="timespan-select">
+                                <p>1M</p>
+                            </div>
+                            <div class="timespan-select">
+                                <p>1J</p>
+                            </div>
+                        </div>
+                        <div id="chart"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="tab-portfolio" hidden>
-                <h1>Test</h1>
+            <div id="portfolio-tab" class="hidden">
+                <h1>test</h1>
+            </div>
         </div>
         <div class="function-btn" id="settings-btn" uk-toggle="target: #settings-popup; animation: uk-animation-fade;"><span uk-icon="icon:settings;ratio:1.75;"></span></div>
         <div class="function-btn" id="color-theme-btn"><ion-icon name="sunny-outline"></ion-icon></div>
