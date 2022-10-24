@@ -29,21 +29,24 @@ fetchCData = async () => {
   const queryParams = "symbols=tBTCUSD,tETHUSD,tSHIB:USD,tDOGE:USD,tMATIC:USD,tLTCUSD,tXMRUSD,tADAUSD,tDOTUSD,tSOLUSD"
 
   const KEYS = ['FRR', 'BID', 'BID_PERIOD', 'BID_SIZE', 'ASK', 'ASK_PERIOD', 'ASK_SIZE', 'DAILY_CHANGE', 'DAILY_CHANGE_RELATIVE', 'LAST_PRICE'];
+  const coinnames = ['BTC', 'ETH', 'SHIB', 'DOGE', 'MATIC', 'LTC', 'XMR', 'ADA', 'DOT', 'SOL'];
   const JSONCData = {};
 
   return await axios.get(`${baseUrl}?${queryParams}`)
     .then(response => {
-      for (let coin of response.data) {
-        JSONCData[coin[0]] = {};
-        KEYS.forEach((coinattr, i) => {
-          JSONCData[coin[0]][KEYS[i]] = coin[i + 1];
+
+      response.data.forEach((coin, i) => {
+        JSONCData[coinnames[i]] = {};
+
+        KEYS.forEach((coinattr, j) => {
+          JSONCData[coinnames[i]][KEYS[j]] = coin[j + 1]
         })
-      }
+      });
       
       return JSONCData;
 
     }, error => {
-        res.status(503).send(error);
+        res.status(500).send(error);
         console.log(error);
     })
 }
@@ -193,7 +196,7 @@ router.get('/getUserCryptoData', async (req, res) => {
   
       if(user) {
         
-        const distinctCoinAmountSum = await Order.aggregate([
+        const result = await Order.aggregate([
           {
             $match: {
               uId: user.uId
@@ -212,8 +215,19 @@ router.get('/getUserCryptoData', async (req, res) => {
           }
         ])
   
-        if(distinctCoinAmountSum.length > 0)
+        if(result.length > 0) {
+
+          const distinctCoinAmountSum = {}; 
+
+          for(let c of result) {
+            distinctCoinAmountSum[c._id] = {};
+            distinctCoinAmountSum[c._id].cAmount = c.cAmount;
+            distinctCoinAmountSum[c._id].count = c.count;
+          }
+          
           res.status(200).send(distinctCoinAmountSum);
+
+        }
         else 
           res.status(200).send("No data found for this user");
       }

@@ -9,7 +9,8 @@ let currencies = {
 let currencyRates;
 let currentBuyPrice;
 let coinAmountPerDollar;
-
+let coinData; 
+let portfolioData;
 let defaultCurrency = 'USD';
 
 
@@ -41,6 +42,7 @@ const fetchTickers = () => {
         contentType: "application/json",
         success: function (response) {
             changeCurrency(defaultCurrency, response);
+            coinData = response; 
         },
         error: function (err) {
             UIkit.notification({message: 'There was an error fetching crypto data!', status: 'danger'}) ;
@@ -157,6 +159,7 @@ const getUserOrders = () => {
 }
 
 const getUserCryptoData = () => {
+    $('#portfolio-tab h1').remove();
 
     $.ajax({
         url: "/home/getUserCryptoData",
@@ -164,7 +167,7 @@ const getUserCryptoData = () => {
         contentType: "application/json",
         success: (response) => {
 
-            if(!response.includes("No data")) {
+            if(Object.keys(response).length > 0) {
 
                 let chartStatus = Chart.getChart("coinchart");
                 if (chartStatus != undefined) {
@@ -188,12 +191,13 @@ const getUserCryptoData = () => {
                 const labels = [];
                 const coindata = [];
                 const colors = [];
-    
-                for(let coin of response) {
-                    labels.push(coin._id);
-                    coindata.push(coin.cAmount);
-                    colors.push(coincolors[coin._id])
-                }
+                
+
+                Object.entries(response).forEach((c , i) => {
+                    labels.push(c[0]);
+                    colors.push(coincolors[c[0]])
+                    coindata.push(c[1].cAmount);
+                })
     
                 const data = {
                     labels: labels,
@@ -207,32 +211,42 @@ const getUserCryptoData = () => {
                     }],
                   };
                   
-                  const config = {
-                    type: 'pie',
-                    data: data,
-                    options: {
-                        responsive:true,
-                        maintainAspectRatio: false,
-                        plugins: {  
-                            legend: {
-                              labels: {
-                                color: "white",  
-                                font: {
-                                  size: 12
-                                }
-                              }
+                const config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false,
+                    plugins: {  
+                        legend: {
+                            labels: {
+                            color: "white",  
+                            font: {
+                                size: 12
                             }
-                          },
-                    }
-                  };
-    
-                  
+                            }
+                        }
+                        },
+                }
+                };
+
+                const coinchart = new Chart(
+                $('#coinchart'),
+                config
+                );
             
-                  const coinchart = new Chart(
-                    $('#coinchart'),
-                    config
-                  );
+                let currentValueAllCoins = 0;
+                portfolioData = response;
+
+                Object.entries(response).forEach((c , i) => {
+                    currentValueAllCoins += coinData[c[0]].FRR * c[1].cAmount;
+                })
+
+                $('#portfolio-value').text(currentValueAllCoins.toFixed(4) + ' ' + currencies[defaultCurrency]);
+
+
             } else {
+                $('#portfolio-tab h1').remove();
                 $('.chart-container').before('<h1 style="color: white">No data found</h1>')
             }
 
@@ -256,6 +270,13 @@ const changeCurrency = (to, cryptoData) => {
         
         insertDataIntoTable(cryptoData);
     }
+}
+
+const updatePortfolioValue = (legendItemRemoved) => {
+
+
+    $("#portfolio-value").text(($("#portfolio-value").text().substr(0, $("#portfolio-value").text().length - 2) - (coinData[legendItemRemoved.text].FRR * portfolioData[legendItemRemoved.text].cAmount)).toFixed(4) + ' ' + currencies[defaultCurrency]);
+
 }
 
 const resizeInput = () => {

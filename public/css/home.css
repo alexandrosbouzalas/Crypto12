@@ -7,7 +7,7 @@
 /* Global */
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .visible {
@@ -18,20 +18,26 @@
     padding-top: 50px;
 }
 
-.chart-container{
+#portfolio-tab {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.portfolio-info-container {
     width: 50%;
 }
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.portfolio-info-container p {
+    color: white; 
+    font-size: 40px;
+    width: 100%;
+    text-align: end;
+    padding: 20px;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+.chart-container{
+    width: 50%;
+    margin-bottom: 50px;
 }
 
 html {
@@ -537,8 +543,20 @@ a {
         flex-direction: column;
     }
 
+
     .crypto-data-container,
     .crypto-chart-container {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #portfolio-tab {
+        flex-direction: column-reverse;
+    }
+    
+    .chart-container,
+    .portfolio-info-container {
         width: 100%;
     }
 }
