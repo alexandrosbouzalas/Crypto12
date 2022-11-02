@@ -32,9 +32,14 @@ $('#register-confirm-btn').click(() => {
           },
           error: function (err) {
             // Insert error handling here
-            UIkit.notification({message: 'There was an error creating your account. Please try again later.', status: 'danger'});
-            console.log('There was an error creating your account')
+            console.log('There was an error creating account')
             console.log(err.responseJSON.msg);
+            
+            if(err.responseJSON.msg.includes("already exists")) {
+              UIkit.notification({message: err.responseJSON.msg, status: 'danger'});
+            } else {
+              UIkit.notification({message: 'There was an error creating your account. Please try again later.', status: 'danger'});
+            }
           },
         });
       }

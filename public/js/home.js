@@ -9,7 +9,8 @@ let currencies = {
 let currencyRates;
 let currentBuyPrice;
 let coinAmountPerDollar;
-
+let coinData; 
+let portfolioData;
 let defaultCurrency = 'USD';
 
 
@@ -41,9 +42,10 @@ const fetchTickers = () => {
         contentType: "application/json",
         success: function (response) {
             changeCurrency(defaultCurrency, response);
+            coinData = response; 
         },
         error: function (err) {
-            UIkit.notification({message: 'There was an error fetching crypto data!', status: 'error'}) ;
+            UIkit.notification({message: 'There was an error fetching crypto data!', status: 'danger'}) ;
             console.log(err.statusText)
         },
       });
@@ -139,6 +141,123 @@ const toggleDarkMode = (darkMode) => {
     }
 }
 
+const getUserOrders = () => {
+
+    $.ajax({
+        url: "/home/getUserOrders",
+        method: "GET",
+        contentType: "application/json",
+        success: (response) => {
+            console.table(response)
+        },
+        error: (error) => {
+            console.log(error)
+            UIkit.notification({message: 'There was an error fetching user orders', status: 'danger'})
+        }
+    })
+
+}
+
+const getUserCryptoData = () => {
+    $('#portfolio-tab h1').remove();
+
+    $.ajax({
+        url: "/home/getUserCryptoData",
+        method: "GET",
+        contentType: "application/json",
+        success: (response) => {
+
+            if(Object.keys(response).length > 0) {
+
+                let chartStatus = Chart.getChart("coinchart");
+                if (chartStatus != undefined) {
+                  chartStatus.destroy();
+                }
+    
+    
+                const coincolors = {
+                    BTC: '#f7931a',
+                    ETH: '#627eea',
+                    SHIB: '#1c2951',
+                    DOGE: '#c3a634',
+                    MATIC: '#8247e5',
+                    LTC: '#a5a8a9',
+                    XMR: '#ff6600',
+                    ADA: '#0033ad',
+                    DOT: '#e6007a',
+                    SOL: '#35c8ba'
+                }
+    
+                const labels = [];
+                const coindata = [];
+                const colors = [];
+                
+
+                Object.entries(response).forEach((c , i) => {
+                    labels.push(c[0]);
+                    colors.push(coincolors[c[0]])
+                    coindata.push(c[1].cAmount);
+                })
+    
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                      backgroundColor: colors,
+                      data: coindata,
+                      borderRadius: 7,
+                      borderSkipped: false,
+                      pointRadius: 6,
+                      pointHoverRadius: 7
+                    }],
+                  };
+                  
+                const config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false,
+                    plugins: {  
+                        legend: {
+                            labels: {
+                            color: "white",  
+                            font: {
+                                size: 12
+                            }
+                            }
+                        }
+                        },
+                }
+                };
+
+                const coinchart = new Chart(
+                $('#coinchart'),
+                config
+                );
+            
+                let currentValueAllCoins = 0;
+                portfolioData = response;
+
+                Object.entries(response).forEach((c , i) => {
+                    currentValueAllCoins += coinData[c[0]].FRR * c[1].cAmount;
+                })
+
+                $('#portfolio-value').text(currentValueAllCoins.toFixed(4) + ' ' + currencies[defaultCurrency]);
+
+
+            } else {
+                $('#portfolio-tab h1').remove();
+                $('.chart-container').before('<h1 style="color: white">No data found</h1>')
+            }
+
+        },
+        error: (error) => {
+            console.log(error)
+            UIkit.notification({message: 'There was an error fetching user portfolio', status: 'danger'})
+        }
+    })
+}
+
 const changeCurrency = (to, cryptoData) => {
 
     if(to === 'USD') insertDataIntoTable(cryptoData);
@@ -153,6 +272,13 @@ const changeCurrency = (to, cryptoData) => {
     }
 }
 
+const updatePortfolioValue = (legendItemRemoved) => {
+
+
+    $("#portfolio-value").text(($("#portfolio-value").text().substr(0, $("#portfolio-value").text().length - 2) - (coinData[legendItemRemoved.text].FRR * portfolioData[legendItemRemoved.text].cAmount)).toFixed(4) + ' ' + currencies[defaultCurrency]);
+
+}
+
 const resizeInput = () => {
     if($('.amount-select').val().length !== 0)
        $('.amount-select').width($('.amount-select').val().length + 'ch');
@@ -163,7 +289,78 @@ const resizeInput = () => {
 
 const currencyToCoin = () => {
 
-    $('#switch-btn').hasClass('switched') ? $('#converted').text(($('.buy-overlay .amount-select').val() * currentBuyPrice)) : $('#converted').text(($('.buy-overlay .amount-select').val() / currentBuyPrice));
+    if($('.amount-select').val() !== '.')
+        $('#switch-btn').hasClass('switched') ? $('#converted').text(($('.buy-overlay .amount-select').val() * currentBuyPrice)) : $('#converted').text(($('.buy-overlay .amount-select').val() / currentBuyPrice));
+}
+
+const enableBuyBtnFinal = () => {
+
+    $('#buy-btn-final').click((e) => {
+            
+        $('#buy-btn-final').text('Kauf bestätigen?');
+
+        $('#buy-btn-final').addClass('pulse preconfirmed');
+
+        $('.preconfirmed').click((e) => {
+
+            valid = true;
+
+            let price;
+
+            $('#switch-btn').hasClass('switched') ? price = $('#converted').text() : price = $('.amount-select').val();
+            !$('#switch-btn').hasClass('switched') ? amount = $('#converted').text() : amount = $('.amount-select').val();
+
+            if(price > 999999) {
+                UIkit.notification({message: 'Purchase price can not exceed 999999!', status: 'warning'});
+                valid = false;
+            }
+
+            if($('.amount-select').val().length >  0 && /[^0-9.]$/.test($('.amount-select').val())) {
+                UIkit.notification({message: 'Purchase price contains invalid characters!', status: 'warning'});
+                valid = false;
+            }
+
+            if($('.amount-select').val()[0] === '.') {
+                $('.amount-select').val('0' + $('.amount-select').val());
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+                valid = false;
+            }
+
+            if($('.amount-select').val()[$('.amount-select').val().length - 1] === '.') {
+                $('.amount-select').val($('.amount-select').val() + '0');
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+                valid = false;
+            }
+            
+            if($('.amount-select').val().length == 0) valid = false; 
+
+            if($('.amount-select').val().length > 0 && !/[^0-9.]$/.test($('.amount-select').val())) {
+                $('.amount-select').val(parseFloat($('.amount-select').val()));
+                $('.amount-select').width($('.amount-select').val().length + 'ch');
+            }
+
+            if(valid) {
+                $.ajax({
+                    url: "/home/placeOrder",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({data: { coin: $('.buy-overlay .coin-name-short').text(), price: price, amount: amount, currency: defaultCurrency}}),
+                    success: function (response) {
+                        UIkit.notification({message: 'Order placed successfully!', status: 'success'})
+                        $('.buy-overlay').slideUp();
+                    },
+                    error: function (err) {
+                        // Insert error handling here
+                        UIkit.notification({message: 'There was an error placing your order!', status: 'danger'})
+                        console.log(err.statusText)
+                    },
+                });
+            }
+
+        })
+
+    })
+
 }
 
 toggleDarkMode(localStorage.darkMode);
@@ -223,6 +420,13 @@ $(document).ready(() => {
                 });
 
                 $('#switch-btn').removeClass('switched');
+                $('#buy-btn-final').removeClass('pulse preconfirmed');
+
+                $('#buy-btn-final').addClass('disabled');
+
+                $('#buy-btn-final').off();    
+                
+                enableBuyBtnFinal();
 
                 $('.amount-select').css('width', '40px');
                 $('.amount-select').val('');
@@ -251,6 +455,7 @@ $(document).ready(() => {
 
             })
 
+
             $('#color-theme-btn').click(() => {
 
                 if(localStorage.darkMode === 'true')
@@ -259,6 +464,23 @@ $(document).ready(() => {
                     localStorage.setItem('darkMode', true);
 
                 toggleDarkMode(localStorage.darkMode);
+            })
+
+            $('#portfolio-btn').click(() => {
+                $('.selected-tab').removeClass('selected-tab');
+                $('#portfolio-btn').addClass('selected-tab');
+                $('#overview-tab').removeClass('visible').addClass('hidden');
+                $('#portfolio-tab').removeClass('hidden').addClass('visible');
+
+                getUserCryptoData();
+
+            })
+
+            $('#overview-btn').click(() => {
+                $('.selected-tab').removeClass('selected-tab');
+                $('#overview-btn').addClass('selected-tab');
+                $('#portfolio-tab').removeClass('visible').addClass('hidden');
+                $('#overview-tab').removeClass('hidden').addClass('visible');
             })
 
             $('#form-stacked-select').change(() => {
@@ -280,18 +502,29 @@ $(document).ready(() => {
         })
         
         $('.amount-select-container input').on('input', (e) => {
-                $(e.target).val($(e.target).val().replace(/[^0-9.]/g, ''));
+
+            if($('.amount-select').val().length > 0) {
+                $('#buy-btn-final').removeClass('disabled');
+                $(e.target).val($(e.target).val().replace(/[^\d\.]/g, '')
+                .replace('.', '%FD%') 
+                .replace(/\./g, '') 
+                .replace('%FD%', '.')) 
                 resizeInput();
-                currencyToCoin();
-            })
+            } else {
+                $('#buy-btn-final').removeClass('pulse preconfirmed');
+                $('#buy-btn-final').text($('.buy-overlay .coin-name-short').text() + ' Kaufen');
+                $('#buy-btn-final').addClass('disabled');
+                $('#buy-btn-final').off();
+                enableBuyBtnFinal();
+            }
+            currencyToCoin();
+        })
 
         $('#switch-btn').click(() => {
 
             if($('#switch-btn').hasClass('switched')) {
                 $('#switch-btn').removeClass('switched')
-                //$('.amount-select-container').css('transform', `translateX(${$('.amount-converted-container p:nth-of-type(2)').width()}px)`)
             } else {
-                //$('.amount-select-container').css('transform', `translateX(-${$('.amount-converted-container p:nth-of-type(2)').width()}px)`)
                 $('#switch-btn').addClass('switched');
             }
 
@@ -309,42 +542,13 @@ $(document).ready(() => {
             currencyToCoin();
         })
 
-        $('#buy-btn-final').click((e) => {
-            valid = true;
-            if($('.amount-select').val().length > 7) {
-                UIkit.notification({message: 'Purchase price can not exceed 9999999!', status: 'warning'});
-                valid = false;
-            }
-            if($('.amount-select').val().length >  0 && !/^[0-9]+$/.test($('.amount-select').val())) {
-                UIkit.notification({message: 'Invalid characters in purchase price!', status: 'warning'})
-                valid = false;
-            }
-            
-            if($('.amount-select').val().length == 0) valid = false; 
+        enableBuyBtnFinal();
 
-            if(valid) {
-                $.ajax({
-                    url: "/home/placeOrder",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ amount: amount }),
-                    success: function (response) {
-                        UIkit.notification({message: 'Order placed successfully!', status: 'success'})
-                        $('.buy-overlay').slideUp();
-                    },
-                    error: function (err) {
-                        // Insert error handling here
-                        UIkit.notification({message: 'There was an error placing your order!', status: 'error'})
-                        console.log(err.statusText)
-                    },
-                });
-            }
-        })
-        },
-        error: function (err) {
-            UIkit.notification({message: 'There was an error fetching currency exchange rates!', status: 'error'})
-            console.log(err.statusText)
-        },
-      });
+      },
+      error: function (err) {
+          UIkit.notification({message: 'There was an error fetching currency exchange rates!', status: 'danger'})
+          console.log(err.statusText)
+      },
+    });
 })
 
