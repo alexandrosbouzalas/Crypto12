@@ -272,9 +272,11 @@ const changeCurrency = (to, cryptoData) => {
     }
 }
 
-const updatePortfolioValue = (legendItemRemoved) => {
-
-    $("#portfolio-value").text(($("#portfolio-value").text().substr(0, $("#portfolio-value").text().length - 2) - (coinData[legendItemRemoved.text].FRR * portfolioData[legendItemRemoved.text].cAmount)).toFixed(4) + ' ' + currencies[defaultCurrency]);
+const updatePortfolioValue = (legendItemRemoved, strikethrough) => {
+    if(strikethrough && legendItemRemoved)
+        $("#portfolio-value").text((parseFloat($("#portfolio-value").text().substr(0, $("#portfolio-value").text().length - 2)) - (coinData[legendItemRemoved.text].FRR * portfolioData[legendItemRemoved.text].cAmount)).toFixed(4) + ' ' + currencies[defaultCurrency]);
+    else 
+        $("#portfolio-value").text((parseFloat($("#portfolio-value").text().substr(0, $("#portfolio-value").text().length - 2)) + (coinData[legendItemRemoved.text].FRR * portfolioData[legendItemRemoved.text].cAmount)).toFixed(4) + ' ' + currencies[defaultCurrency]);
 
 }
 
