@@ -128,7 +128,7 @@ const toggleDarkMode = (darkMode) => {
         $('#color-theme-btn').html('<ion-icon name="moon-outline"></ion-icon>')
 
         $('#settings-popup').addClass('uk-card-secondary');
-        $(".function-btn, .coin-name-full, .coin-price, .tab-label, #portfolio-btn, #overview-btn").addClass('dark-color');
+        $(".function-btn, #portfolio-value, .coin-name-full, .coin-price, .tab-label, #portfolio-btn, #overview-btn").addClass('dark-color');
         $('#form-stacked-select, #settings-popup, #container-main, .tab, .function-btn, .buy-content, .amount-select').addClass('dark-background');
 
     } else {
@@ -136,7 +136,7 @@ const toggleDarkMode = (darkMode) => {
         $('#color-theme-btn').html('<ion-icon name="sunny-outline"></ion-icon>');
 
         $('#settings-popup').removeClass('uk-card-secondary');
-        $(".function-btn, .coin-name-full, .coin-price, .tab-label, #portfolio-btn, #overview-btn").removeClass('dark-color');
+        $(".function-btn, #portfolio-value, .coin-name-full, .coin-price, .tab-label, #portfolio-btn, #overview-btn").removeClass('dark-color');
         $('#form-stacked-select, #settings-popup, #container-main, .tab, .function-btn, .buy-content, .amount-select').removeClass('dark-background');
     }
 }
@@ -273,7 +273,6 @@ const changeCurrency = (to, cryptoData) => {
 }
 
 const updatePortfolioValue = (legendItemRemoved) => {
-
 
     $("#portfolio-value").text(($("#portfolio-value").text().substr(0, $("#portfolio-value").text().length - 2) - (coinData[legendItemRemoved.text].FRR * portfolioData[legendItemRemoved.text].cAmount)).toFixed(4) + ' ' + currencies[defaultCurrency]);
 
@@ -481,11 +480,16 @@ $(document).ready(() => {
                 $('#overview-btn').addClass('selected-tab');
                 $('#portfolio-tab').removeClass('visible').addClass('hidden');
                 $('#overview-tab').removeClass('hidden').addClass('visible');
+
+                fetchTickers();
             })
 
             $('#form-stacked-select').change(() => {
-                defaultCurrency =  $('#form-stacked-select').val();      
-                fetchTickers();
+                defaultCurrency =  $('#form-stacked-select').val();
+                if($('#overview-btn').hasClass("selected-tab"))      
+                    fetchTickers();
+                else 
+                    getUserCryptoData();
                 $('#settings-btn').click();
             })
 
