@@ -41,8 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
+### Crypto 12 is a free and open source portfolio allowing your to purchase any of the top 10 cryptocurrencies.
 
 ### Built With
 
