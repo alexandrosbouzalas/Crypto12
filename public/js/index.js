@@ -28,6 +28,7 @@ $('#register-confirm-btn').click(() => {
           data: JSON.stringify({ data: {username: $('#username-register').val(), password: $('#password-register').val()} }),
           success: function (response) {
             UIkit.notification({message: 'Your account was created successfully!', status: 'success'});
+            $('input').val("");
             $('#login-btn').click();
           },
           error: function (err) {
@@ -43,40 +44,41 @@ $('#register-confirm-btn').click(() => {
           },
         });
       }
-    })
+})
     
-    $('#login-confirm-btn').click(() => {
-      
-      let valid = true;
-      
-      if(!validateUsername($('#username-login').val())) {
-        valid = false;
-        UIkit.notification({message: 'Username must be at least 4 characters long', status: 'warning'});
-      };
-      if(!validatePassword($('#password-login').val())) {
-        valid = false; 
-        UIkit.notification({message: 'The password must be at least 8 characters long!', status: 'warning'});
-    }
+$('#login-confirm-btn').click(() => {
 
-    if(valid) {
+  let valid = true;
+  
+  if(!validateUsername($('#username-login').val())) {
+    valid = false;
+    UIkit.notification({message: 'Username must be at least 4 characters long', status: 'warning'});
+  };
 
-        $.ajax({
-            url: "/login",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ data: {username: $('#username-login').val(), password: $('#password-login').val()} }),
-            success: function (response) {
-              UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Logging in...', status: 'success'});
-              window.location.pathname = '/home';
-            },
-            error: function (err) {
-                // Insert error handling here
-              UIkit.notification({message: 'Invalid username or password!', status: 'danger'});
+  if(!validatePassword($('#password-login').val())) {
+    valid = false; 
+    UIkit.notification({message: 'The password must be at least 8 characters long!', status: 'warning'});
+  }
 
-              console.log('There was an error logging in')
-              console.log(err.responseJSON.msg);
-            },
-          });
+  if(valid) {
+
+      $.ajax({
+          url: "/login",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({ data: {username: $('#username-login').val(), password: $('#password-login').val()} }),
+          success: function (response) {
+            UIkit.notification({message: 'span uk-icon=\'icon: check\'></span> Logging in...', status: 'success'});
+            window.location.pathname = '/home';
+          },
+          error: function (err) {
+              // Insert error handling here
+            UIkit.notification({message: 'Invalid username or password!', status: 'danger'});
+
+            console.log('There was an error logging in')
+            console.log(err.responseJSON.msg);
+          },
+        });
     }
 })
 
