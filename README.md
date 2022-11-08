@@ -7,7 +7,7 @@
     <img src="public/img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Crypto 12</h3>
+  <h3 align="center">Crypto12</h3>
 
 </div>
 
@@ -32,7 +32,6 @@
     </li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
@@ -45,10 +44,11 @@
 
 ### Built With
 
+* [![NodeJS][nodejs.org]][nodejs-url]
+* [![Express][expressjs.com]][expressjs-url]
+* [![UIkit][getuikit.com]][uikit-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+* [![Less][lesscss.org]][less-url]
 
 
 <!-- GETTING STARTED -->
@@ -57,18 +57,15 @@
 ### Prerequisites
 
 Make sure you have installed all of the following 
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-* redis
-* mongodb
+* nodejs - [https://nodejs.org/en/download/](https://nodejs.org/en/download)
+* redis - [https://redis.io/download](https://redis.io/download/)
+* mongodb - [https://www.mongodb.com/try/download/community#community](https://www.mongodb.com/try/download/community#community)
 
 ### Installation
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/alexandrosbouzalas/Crypto12
    ```
 2. Install NPM packages
    ```sh
@@ -86,7 +83,8 @@ Make sure you have installed all of the following
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+
+Don't forget to give the project a star!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -106,18 +104,15 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- CONTACT -->
-## Contact
-
-Alexandros Bouzalas - alexandrosbouzalas@gmail.com
-
-Project Link: [https://github.com/alexandrosbouzalas/Crypto12](https://github.com/alexandrosbouzalas/Crypto12)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[nodejs.org]: https://img.shields.io/badge/nodejs-84ba64?style=for-the-badge&logo=nodedotjs&logoColor=white
+[nodejs-url]: https://nodejs.org
+[getuikit.com]: https://img.shields.io/badge/uikit-2396f3?style=for-the-badge&logo=uikit&logoColor=white
+[uikit-url]: https://getuikit.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+[expressjs.com]: https://img.shields.io/badge/express-828282?style=for-the-badge&logo=express&logoColor=white
+[expressjs-url]: https://expressjs.com 
+[lesscss.org]: https://img.shields.io/badge/less-707070?style=for-the-badge&logo=less&logoColor=white
+[less-url]: https://lesscss.org 
