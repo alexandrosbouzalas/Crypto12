@@ -73,6 +73,10 @@ Make sure you have installed all of the following
    ```
 3. Start the redis server instance
 4. Start the local mongodb database
+5. Start the `server.js` file
+   ```sh
+   node server.js
+   ```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
