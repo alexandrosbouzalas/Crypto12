@@ -167,7 +167,7 @@ const getUserCryptoData = () => {
         contentType: "application/json",
         success: (response) => {
 
-            if(Object.keys(response).length > 0) {
+            if(response !== "No data found for this user") {
 
                 let chartStatus = Chart.getChart("coinchart");
                 if (chartStatus != undefined) {
